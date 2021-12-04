@@ -16,34 +16,20 @@ import java.util.List;
 
 public class CartDataStore {
     String userRef;
-    CartDataNotifier notifierImplement;
-    private DatabaseReference mDatabase;
 
-    public CartDataStore(Context context, CartDataNotifier _notifierImplement){
-        notifierImplement = _notifierImplement;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                DItemList dItemList = dataSnapshot.child("users").child(userRef).child("cart").getValue(DItemList.class);
-                notifierImplement.onDataChange(dItemList.get());
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                notifierImplement.onCancelled();
-            }
-        });
+    public CartDataStore(){
     }
 
-    public void setCartData(List<Integer> itemList){
-        DItemList _itemList = new DItemList(itemList);
-        // TODO : CRUD CREATE - WEB API USER CART
-        mDatabase.child("users").child(userRef).child("cart").setValue(_itemList);
+    public void addCartData(Integer itemID){
+
     }
 
-    public interface CartDataNotifier {
-        public void onDataChange(List<Integer> itemList);
-        public void onCancelled();
+    public void deleteCartData(Integer listIndex){
+
+    }
+
+    private void setCartData(List<Integer> itemList){
+
     }
 
     private class DItemList{

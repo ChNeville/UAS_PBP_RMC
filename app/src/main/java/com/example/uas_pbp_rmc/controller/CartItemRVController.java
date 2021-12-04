@@ -31,12 +31,6 @@ public class CartItemRVController
         this.cartDataStore = cartDataStore;
         this.context = context;
         this.activity = activity;
-
-        itemList = cartDataStore.getCartData();
-
-        // TODO : INSERT WEBAPI IMPLEMENTATION HERE (STOREITEM)
-        //StoreItemDatagen generator = new StoreItemDatagen();
-        //itemDB = generator.retrieveItemList();
     }
 
     @NonNull
@@ -65,9 +59,7 @@ public class CartItemRVController
 
     @Override
     public void itemDeleteAction(int index) {
-        itemList.remove(index);
-        cartDataStore.setCartData(itemList);
-        itemList = cartDataStore.getCartData();
+        cartDataStore.deleteCartData(index);
         notifyDataSetChanged();
     }
 

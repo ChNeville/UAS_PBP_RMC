@@ -14,14 +14,19 @@ import com.example.uas_pbp_rmc.controller.DetailClickListener;
 import com.example.uas_pbp_rmc.databinding.ActivityDetailBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
 import com.example.uas_pbp_rmc.webapi.CartDataStore;
+
+import com.example.uas_pbp_rmc.webapi.StoreItemDB;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class DetailActivity extends AppCompatActivity implements DetailClickListener {
+public class DetailActivity
+        extends AppCompatActivity
+        implements DetailClickListener{
 
     Intent intent;
     CartDataStore cartDataStore;
+    StoreItemDB storeItemDB;
 
     ActivityDetailBinding binding;
     List<ProductItem> itemList;
@@ -35,10 +40,8 @@ public class DetailActivity extends AppCompatActivity implements DetailClickList
         mdetail_add_cart = findViewById(R.id.detail_add_cart);
         intent = getIntent();
 
-        cartDataStore = new CartDataStore(DetailActivity.this);
-
-        //StoreItemDatagen generator = new StoreItemDatagen();
-        //itemList = generator.retrieveItemList();
+        cartDataStore = new CartDataStore();
+        storeItemDB = new StoreItemDB();
 
         itemID = intent.getIntExtra("itemID",0);
 
@@ -47,7 +50,6 @@ public class DetailActivity extends AppCompatActivity implements DetailClickList
         binding.setModel(itemList.get(itemID));
 
         setTitle(R.string.view_title_detail);
-
     }
 
     @Override
@@ -65,9 +67,7 @@ public class DetailActivity extends AppCompatActivity implements DetailClickList
 
     @Override
     public void cartAddClicked() {
-        List<Integer> itemCart = cartDataStore.getCartData();
-        itemCart.add(itemID);
-        cartDataStore.setCartData(itemCart);
+        cartDataStore.addCartData(itemID);
         PushNotification("Notification From HP SECOND", "Produk Berhasil Masuk Keranjang!");
 
         setResult(Activity.RESULT_OK);

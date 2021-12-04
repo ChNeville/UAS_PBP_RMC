@@ -15,27 +15,9 @@ import java.util.List;
 
 public class StoreItemDB {
     String userRef;
-    StoreItemDB.StoreDataNotifier notifierImplement;
-    private DatabaseReference mDatabase;
 
-    public StoreItemDB(Context context, StoreItemDB.StoreDataNotifier _notifierImplement){
-        notifierImplement = _notifierImplement;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                notifierImplement.onDataChange();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                notifierImplement.onCancelled();
-            }
-        });
-    }
+    public StoreItemDB(){
 
-    public interface StoreDataNotifier {
-        public void onDataChange();
-        public void onCancelled();
     }
 
     private class DProductList{
