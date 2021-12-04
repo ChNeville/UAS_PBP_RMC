@@ -18,6 +18,9 @@
             android:name=".QRPageActivity"
             android:exported="false" />
         <activity
+            android:name=".DetailActivity"
+            android:exported="true" >
+        <activity
             android:name=".SplashActivity"
             android:exported="true" >
             <intent-filter>
