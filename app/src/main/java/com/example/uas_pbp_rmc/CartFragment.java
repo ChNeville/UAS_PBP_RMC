@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.example.uas_pbp_rmc.controller.CartItemRVController;
 import com.example.uas_pbp_rmc.databinding.FragmentCartBinding;
-import com.example.uas_pbp_rmc.webapi.CartDataStore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,14 +20,13 @@ import com.example.uas_pbp_rmc.webapi.CartDataStore;
 public class CartFragment extends Fragment {
 
     FragmentCartBinding binding;
-    CartDataStore cartDataStore;
 
-    public CartFragment(CartDataStore cartDataStore) {
-        this.cartDataStore = cartDataStore;
+    public CartFragment() {
+
     }
 
-    public static CartFragment newInstance(CartDataStore cartDataStore) {
-        CartFragment fragment = new CartFragment(cartDataStore);
+    public static CartFragment newInstance() {
+        CartFragment fragment = new CartFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -45,7 +43,7 @@ public class CartFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_cart,container,false);
         binding.setActivity(this);
 
-        CartItemRVController rvController = new CartItemRVController(cartDataStore, container.getContext(), getActivity());
+        CartItemRVController rvController = new CartItemRVController(container.getContext(), getActivity());
         binding.setRvadapter(rvController);
 
         return binding.getRoot();

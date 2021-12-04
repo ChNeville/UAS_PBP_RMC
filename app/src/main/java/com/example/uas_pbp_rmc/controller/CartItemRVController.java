@@ -13,7 +13,6 @@ import com.example.uas_pbp_rmc.BR;
 import com.example.uas_pbp_rmc.R;
 import com.example.uas_pbp_rmc.databinding.ListItemCartBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
-import com.example.uas_pbp_rmc.webapi.CartDataStore;
 
 import java.util.List;
 
@@ -21,14 +20,12 @@ public class CartItemRVController
         extends RecyclerView.Adapter<CartItemRVController.ViewHolder>
         implements CartItemRVClickListener{
 
-    CartDataStore cartDataStore;
     private List<Integer> itemList;
     private List<ProductItem> itemDB;
     Context context;
     Activity activity;
 
-    public CartItemRVController(CartDataStore cartDataStore, Context context, Activity activity){
-        this.cartDataStore = cartDataStore;
+    public CartItemRVController(Context context, Activity activity){
         this.context = context;
         this.activity = activity;
     }
@@ -59,7 +56,6 @@ public class CartItemRVController
 
     @Override
     public void itemDeleteAction(int index) {
-        cartDataStore.deleteCartData(index);
         notifyDataSetChanged();
     }
 

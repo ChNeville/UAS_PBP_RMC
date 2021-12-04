@@ -13,9 +13,7 @@ import android.os.Bundle;
 import com.example.uas_pbp_rmc.controller.DetailClickListener;
 import com.example.uas_pbp_rmc.databinding.ActivityDetailBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
-import com.example.uas_pbp_rmc.webapi.CartDataStore;
 
-import com.example.uas_pbp_rmc.webapi.StoreItemDB;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -25,8 +23,6 @@ public class DetailActivity
         implements DetailClickListener{
 
     Intent intent;
-    CartDataStore cartDataStore;
-    StoreItemDB storeItemDB;
 
     ActivityDetailBinding binding;
     List<ProductItem> itemList;
@@ -39,9 +35,6 @@ public class DetailActivity
         super.onCreate(savedInstanceState);
         mdetail_add_cart = findViewById(R.id.detail_add_cart);
         intent = getIntent();
-
-        cartDataStore = new CartDataStore();
-        storeItemDB = new StoreItemDB();
 
         itemID = intent.getIntExtra("itemID",0);
 
@@ -67,7 +60,6 @@ public class DetailActivity
 
     @Override
     public void cartAddClicked() {
-        cartDataStore.addCartData(itemID);
         PushNotification("Notification From HP SECOND", "Produk Berhasil Masuk Keranjang!");
 
         setResult(Activity.RESULT_OK);

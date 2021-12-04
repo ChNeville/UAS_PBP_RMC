@@ -26,8 +26,6 @@ public class ProfilFragment extends Fragment {
     public static ProfilFragment newInstance(String param1, String param2) {
         ProfilFragment fragment = new ProfilFragment();
         Bundle args = new Bundle();
-        //args.putString(ARG_PARAM1, param1);
-        //args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
