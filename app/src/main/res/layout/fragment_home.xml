@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rvlayout="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeFragment">
+
+    <data>
+        <variable
+            name="activity"
+            type="com.example.uas_pbp_rmc.HomeFragment" />
+        <variable
+            name="rvadapter"
+            type="com.example.uas_pbp_rmc.controller.HomeItemRVController" />
+        <variable
+            name="rvlayouter"
+            type="com.example.uas_pbp_rmc.controller.HomeViewRVLayouter" />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/view_list_products"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adapter="@{rvadapter}"
+            rvlayout:grid="@{2}"/>
+    </FrameLayout>
+
+</layout>
