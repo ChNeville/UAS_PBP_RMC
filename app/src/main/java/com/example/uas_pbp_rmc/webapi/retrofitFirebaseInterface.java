@@ -38,21 +38,21 @@ public interface retrofitFirebaseInterface {
     //CRUD Product ----------------------------------------------
     @Headers({"Accept: application/json"})
     @GET("product")
-    Call<ProfilResponse> getAllProduct();
+    Call<ProductResponse> getAllProduct();
 
     @Headers({"Accept: application/json"})
     @GET("product/{id}")
-    Call<ProfilResponse> getProductById(@Path("id") long id);
+    Call<ProductResponse> getProductById(@Path("id") long id);
 
     @Headers({"Accept: application/json"})
     @POST("product")
-    Call<ProfilResponse> createProduct(@Body ProductItem productItem);
+    Call<ProductResponse> createProduct(@Body ProductItem productItem);
 
     @Headers({"Accept: application/json"})
     @DELETE("product/{id}")
-    Call<ProfilResponse> deleteProduct(@Path("id") long id);
+    Call<ProductResponse> deleteProduct(@Path("id") long id);
 
     @Headers({"Accept: application/json"})
     @PATCH("product/{id}")
-    Call<ProfilResponse> updateProduct(@Path("id") long id, @Body ProductItem productItem);
+    Call<ProductResponse> updateProduct(@Path("id") long id, @Body ProductItem productItem);
 }
