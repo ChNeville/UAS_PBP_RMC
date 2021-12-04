@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import androidx.databinding.BindingAdapter;
 
 import com.example.uas_pbp_rmc.R;
+import com.example.uas_pbp_rmc.job.LoadImageTask;
 
 public class HomeItemRVImageRetriever {
     @BindingAdapter({"imagegen:url"})

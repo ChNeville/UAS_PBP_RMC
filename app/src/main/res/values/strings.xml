@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">UAS_PBP_RMC</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hp_second">HP SECOND</string>
+    <string name="name">Kelompok 14</string>
+    <string name="username">kel14</string>
+    <string name="age">20</string>
+    <string name="address">Jl. Berbeda-beda Tetap Satu</string>
+    <string name="view_title_home">Home</string>
+    <string name="view_title_cart">Cart</string>
+    <string name="view_title_profil">Profil</string>
+    <string name="view_title_detail">Product Info</string>
+    <string name="view_title_location">Location</string>
 </resources>

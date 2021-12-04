@@ -141,23 +141,6 @@
                     android:paddingTop="15dp"
                     android:text="@string/address"/>
             </androidx.cardview.widget.CardView>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/detail_add_cart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="50dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginTop="50dp"
-                    android:onClick="@{() -> mapClickListener.onProfilMapClicked()}"
-                    android:src="@drawable/ic_baseline_person_pin_circle_24"
-                    app:cardElevation="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
     </LinearLayout>

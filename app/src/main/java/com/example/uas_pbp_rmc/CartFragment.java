@@ -2,13 +2,16 @@ package com.example.uas_pbp_rmc;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.uas_pbp_rmc.controller.CartItemRVController;
 import com.example.uas_pbp_rmc.databinding.FragmentCartBinding;
+import com.example.uas_pbp_rmc.webapi.CartDataStore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,7 +27,6 @@ public class CartFragment extends Fragment {
         this.cartDataStore = cartDataStore;
     }
 
-    // TODO: Rename and change types and number of parameters
     public static CartFragment newInstance(CartDataStore cartDataStore) {
         CartFragment fragment = new CartFragment(cartDataStore);
         Bundle args = new Bundle();

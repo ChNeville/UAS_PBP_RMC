@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 
 import com.example.uas_pbp_rmc.controller.HomeItemRVController;
 import com.example.uas_pbp_rmc.databinding.FragmentHomeBinding;
+import com.example.uas_pbp_rmc.model.ProductItem;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,10 +44,8 @@ public class HomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home,container,false);
         binding.setActivity(this);
 
-        StoreItemDatagen generator = new StoreItemDatagen();
-        productItemList = generator.retrieveItemList();
-        HomeItemRVController rvController = new HomeItemRVController(productItemList, container.getContext(), getActivity());
-        binding.setRvadapter(rvController);
+        //HomeItemRVController rvController = new HomeItemRVController(productItemList, container.getContext(), getActivity());
+        //binding.setRvadapter(rvController);
 
         return binding.getRoot();
     }

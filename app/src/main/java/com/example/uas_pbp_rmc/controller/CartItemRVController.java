@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.uas_pbp_rmc.BR;
 import com.example.uas_pbp_rmc.R;
 import com.example.uas_pbp_rmc.databinding.ListItemCartBinding;
+import com.example.uas_pbp_rmc.model.ProductItem;
+import com.example.uas_pbp_rmc.webapi.CartDataStore;
 
 import java.util.List;
 
@@ -31,8 +33,10 @@ public class CartItemRVController
         this.activity = activity;
 
         itemList = cartDataStore.getCartData();
-        StoreItemDatagen generator = new StoreItemDatagen();
-        itemDB = generator.retrieveItemList();
+
+        // TODO : INSERT WEBAPI IMPLEMENTATION HERE (STOREITEM)
+        //StoreItemDatagen generator = new StoreItemDatagen();
+        //itemDB = generator.retrieveItemList();
     }
 
     @NonNull

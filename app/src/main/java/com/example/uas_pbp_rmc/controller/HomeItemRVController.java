@@ -11,8 +11,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.uas_pbp_rmc.BR;
+import com.example.uas_pbp_rmc.DetailActivity;
 import com.example.uas_pbp_rmc.R;
 import com.example.uas_pbp_rmc.databinding.ListItemStoreBinding;
+import com.example.uas_pbp_rmc.model.ProductItem;
+
+import java.util.List;
 
 public class HomeItemRVController
         extends RecyclerView.Adapter<HomeItemRVController.ViewHolder>
