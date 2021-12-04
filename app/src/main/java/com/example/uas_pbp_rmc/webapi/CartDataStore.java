@@ -2,35 +2,48 @@ package com.example.uas_pbp_rmc.webapi;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartDataStore {
-    Context context;
+    String userRef;
+    CartDataNotifier notifierImplement;
+    private DatabaseReference mDatabase;
 
-    public CartDataStore(Context context){
-        this.context = context;
+    public CartDataStore(Context context, CartDataNotifier _notifierImplement){
+        notifierImplement = _notifierImplement;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                DItemList dItemList = dataSnapshot.child("users").child(userRef).child("cart").getValue(DItemList.class);
+                notifierImplement.onDataChange(dItemList.get());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                notifierImplement.onCancelled();
+            }
+        });
     }
 
     public void setCartData(List<Integer> itemList){
-        Gson gson = new Gson();
         DItemList _itemList = new DItemList(itemList);
-        String itemListJson = gson.toJson(_itemList);
         // TODO : CRUD CREATE - WEB API USER CART
+        mDatabase.child("users").child(userRef).child("cart").setValue(_itemList);
     }
 
-    public List<Integer> getCartData(){
-        Gson gson = new Gson();
-        // TODO : CRUD GET - WEB API USER CART
-        String stringData = "";
-        DItemList dItemList = gson.fromJson(stringData, DItemList.class);
-        List<Integer> itemList = new ArrayList<>();
-        if(dItemList != null){
-            itemList = dItemList.get();
-        }
-        return itemList;
+    public interface CartDataNotifier {
+        public void onDataChange(List<Integer> itemList);
+        public void onCancelled();
     }
 
     private class DItemList{
