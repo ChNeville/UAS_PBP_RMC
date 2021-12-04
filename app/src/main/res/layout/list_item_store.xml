@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:imagegen="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="modelID"
+            type="int"/>
+        <variable
+            name="model"
+            type="com.example.uas_pbp_rmc.model.ProductItem"/>
+        <variable
+            name="itemClickListener"
+            type="com.example.uas_pbp_rmc.controller.HomeItemRVClickListener" />
+        <variable
+            name="imageRetriever"
+            type="com.example.uas_pbp_rmc.controller.HomeItemRVImageRetriever" />
+    </data>
+
+    <com.example.uas_pbp_rmc.layout.SquareLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:onClick="@{() -> itemClickListener.itemClicked(modelID)}"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp">
+
+                <ImageView android:id="@+id/list_item_store_elm_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    imagegen:url="@{model.imageURL}"
+                    app:layout_constraintBottom_toTopOf="@+id/list_item_store_elm_product_description_container"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+                <LinearLayout
+                    android:id="@+id/list_item_store_elm_product_description_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <TextView
+                        android:id="@+id/list_item_store_elm_product_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginVertical="5dp"
+                        android:text="@{model.productName}"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/list_item_store_elm_product_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginVertical="5dp"
+                        android:text="@{`Rp. `+String.valueOf((int)model.price)}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </com.example.uas_pbp_rmc.layout.SquareLayout>
+</layout>
