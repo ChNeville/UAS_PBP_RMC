@@ -1,4 +1,5 @@
 package com.example.uas_pbp_rmc.controller;
 
-public class CartItemRVClickListener {
+public interface CartItemRVClickListener {
+    void itemDeleteAction(int index);
 }
