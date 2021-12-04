@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">UAS_PBP_RMC</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="silvermember_underline"><u>Silver Member</u></string>
     <string name="hp_second">HP SECOND</string>
     <string name="name">Kelompok 14</string>
     <string name="username">kel14</string>
