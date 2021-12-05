@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UAS_PBP_RMC">
         <activity
+            android:name=".ProductEditActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
