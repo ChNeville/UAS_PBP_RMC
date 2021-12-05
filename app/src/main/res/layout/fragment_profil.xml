@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
         <variable
             name="profile"
             type="com.example.uas_pbp_rmc.ProfilFragment" />
@@ -168,8 +167,5 @@
             app:backgroundTint="@color/purple_500"
             android:layout_gravity="center"
             app:layout_constraintTop_toBottomOf="@+id/address" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     </LinearLayout>
-
 </layout>
