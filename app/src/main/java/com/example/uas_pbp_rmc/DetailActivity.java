@@ -30,6 +30,7 @@ public class DetailActivity
 
     retrofitFirebaseInterface apiService;
     ProductItem productItem;
+    int itemID;
 
     Intent intent;
 
@@ -42,7 +43,8 @@ public class DetailActivity
         mdetail_add_cart = findViewById(R.id.detail_add_cart);
         intent = getIntent();
 
-        String itemID = intent.getStringExtra("itemID");
+        itemID = intent.getIntExtra("itemID", -1);
+        getProductByID(itemID);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         binding.setDetailClickListener(this);
@@ -66,14 +68,14 @@ public class DetailActivity
 
     @Override
     public void cartAddClicked() {
-
+        addProductToCart(itemID);
         PushNotification("Notification From HP SECOND", "Produk Berhasil Masuk Keranjang!");
 
         setResult(Activity.RESULT_OK);
         finish();
     }
 
-    private void getProductByID(String id){
+    private void getProductByID(int id){
         Call<ProductResponse> call = apiService.getProductById(id);
 
         call.enqueue(new Callback<ProductResponse>() {
@@ -88,7 +90,7 @@ public class DetailActivity
         });
     }
 
-    private void addProductToCart(String id){
+    private void addProductToCart(int id){
         Call<ProductResponse> call = apiService.getProductById(id);
 
         call.enqueue(new Callback<ProductResponse>() {

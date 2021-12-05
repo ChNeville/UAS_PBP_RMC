@@ -8,10 +8,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.uas_pbp_rmc.model.ProductItem;
+import com.example.uas_pbp_rmc.webapi.ProductResponse;
+import com.example.uas_pbp_rmc.webapi.retrofitFirebaseInterface;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductEditActivity extends AppCompatActivity {
 
     Intent intent;
+    retrofitFirebaseInterface apiService;
 
     String activityContext = "EDIT";
 
@@ -34,7 +41,7 @@ public class ProductEditActivity extends AppCompatActivity {
         int passedDBI = intent.getIntExtra("index", 0);
 
         if(passedDBI != -1){
-
+            fetchProductData(passedDBI);
         }
 
         urlImageEDT = findViewById(R.id.product_edit_url);
@@ -58,5 +65,20 @@ public class ProductEditActivity extends AppCompatActivity {
             }
             default:break;
         }
+    }
+
+    private void fetchProductData(int index){
+        Call<ProductResponse> call = apiService.getProductById(index);
+
+        call.enqueue(new Callback<ProductResponse>() {
+            @Override
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+                if (response.isSuccessful()){
+                    dataSet = response.body().getProductList().get(0);
+                }
+            }
+            @Override
+            public void onFailure(Call<ProductResponse> call, Throwable t) {}
+        });
     }
 }
