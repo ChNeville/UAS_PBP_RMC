@@ -17,23 +17,23 @@ import retrofit2.http.Path;
 public interface retrofitFirebaseInterface {
     //CRUD Profil ----------------------------------------------
     @Headers({"Accept: application/json"})
-    @GET("user")
+    @GET("profil")
     Call<ProfilResponse> getAllProfil();
 
     @Headers({"Accept: application/json"})
-    @GET("user/{id}")
+    @GET("profil/{id}")
     Call<ProfilResponse> getProfilById(@Path("id") String id);
 
     @Headers({"Accept: application/json"})
-    @POST("user")
+    @POST("profil")
     Call<ProfilResponse> createProfil(@Body Profil profil);
 
     @Headers({"Accept: application/json"})
-    @DELETE("user/{id}")
+    @DELETE("profil/{id}")
     Call<ProfilResponse> deleteProfil(@Path("id") String id);
 
     @Headers({"Accept: application/json"})
-    @PATCH("user/{id}")
+    @PATCH("profil/{id}")
     Call<ProfilResponse> updateProfil(@Path("id") String id, @Body Profil profil);
 
     //CRUD Product ----------------------------------------------
