@@ -8,7 +8,7 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 
 public class Profil {
-    String username;
+    String username; // TODO: Username pakai email ram
     String membership;
     String nama;
     Integer age;

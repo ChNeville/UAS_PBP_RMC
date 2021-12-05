@@ -13,6 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
+// TODO : Rangkai routing databasenya kyk gini Rama
 public interface retrofitFirebaseInterface {
     //CRUD Profil ----------------------------------------------
     @Headers({"Accept: application/json"})
