@@ -11,12 +11,14 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.uas_pbp_rmc.state.AdminState;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
+    AdminState adminState;
     private FirebaseAuth mAuth;
 
     String UIContext = "LOGIN";
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        adminState = new AdminState(this);
         mAuth = FirebaseAuth.getInstance();
 
         emailInput = findViewById(R.id.loginMail);
@@ -75,19 +78,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setLogin(){
-        mAuth.createUserWithEmailAndPassword(
-                emailInput.getText().toString(),
-                passInput.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this,"Login Sukses",Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(LoginActivity.this,"Login Gagal",Toast.LENGTH_SHORT).show();
+        String emailname = emailInput.getText().toString();
+        String password = passInput.getText().toString();
+        if((emailname == "admin@mail.com") && (password == "admin")){ // TODO : Kalau demonstrasi inget email dan password utk admin
+            adminState.setAdminState(true);
+        }else {
+            mAuth.createUserWithEmailAndPassword(
+                    emailname,
+                    password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(LoginActivity.this, "Login Sukses", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Login Gagal", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void setRegistration(){
