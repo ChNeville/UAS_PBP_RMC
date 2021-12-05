@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
-            name="mapClickListener"
-            type="com.example.uas_pbp_rmc.controller.ProfilViewClickListener" />
+            name="profile"
+            type="com.example.uas_pbp_rmc.ProfilFragment" />
     </data>
 
     <LinearLayout
@@ -135,6 +136,7 @@
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
+                    android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -143,5 +145,31 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/edtprofil"
+            android:layout_width="152dp"
+            android:layout_height="37dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@color/purple_500"
+            android:text="editprofil"
+            android:textAlignment="center"
+            app:backgroundTint="@color/purple_500"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnlogout"
+            android:layout_width="152dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/purple_500"
+            android:text="logout"
+            android:textAlignment="center"
+            app:backgroundTint="@color/purple_500"
+            android:layout_gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/address" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
+
 </layout>
