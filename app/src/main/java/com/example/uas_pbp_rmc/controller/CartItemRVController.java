@@ -13,19 +13,28 @@ import com.example.uas_pbp_rmc.BR;
 import com.example.uas_pbp_rmc.R;
 import com.example.uas_pbp_rmc.databinding.ListItemCartBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
+import com.example.uas_pbp_rmc.webapi.ProductResponse;
+import com.example.uas_pbp_rmc.webapi.retrofitFirebaseInterface;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartItemRVController
         extends RecyclerView.Adapter<CartItemRVController.ViewHolder>
         implements CartItemRVClickListener{
+    retrofitFirebaseInterface apiService;
 
-    private List<Integer> itemList;
-    private List<ProductItem> itemDB;
     Context context;
     Activity activity;
 
-    public CartItemRVController(Context context, Activity activity){
+    private List<Integer> itemList;
+    private List<ProductItem> itemDB;
+
+    public CartItemRVController(List<Integer> itemList, Context context, Activity activity){
+        this.itemList = itemList;
         this.context = context;
         this.activity = activity;
     }
@@ -71,5 +80,20 @@ public class CartItemRVController
             binding.setVariable(BR.model, obj);
             binding.executePendingBindings();
         }
+    }
+
+    private void getProductDB(){
+        Call<ProductResponse> call = apiService.getAllProduct();
+
+        call.enqueue(new Callback<ProductResponse>() {
+            @Override
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+                if (response.isSuccessful()){
+                    itemDB = response.body().getProductList();
+                }
+            }
+            @Override
+            public void onFailure(Call<ProductResponse> call, Throwable t) {}
+        });
     }
 }
