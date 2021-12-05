@@ -14,6 +14,7 @@ public class Profil {
     Integer age;
     String address;
     String picture;
+    String userData;
 
     public String getUsername() {
         return username;
@@ -76,5 +77,13 @@ public class Profil {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] imageBytes = byteArrayOutputStream.toByteArray();
         this.picture = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
+
+    public String getUserData() {
+        return userData;
+    }
+
+    public void setUserData(String userData) {
+        this.userData = userData;
     }
 }
