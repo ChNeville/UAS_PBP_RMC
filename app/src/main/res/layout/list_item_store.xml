@@ -16,6 +16,13 @@
         <variable
             name="imageRetriever"
             type="com.example.uas_pbp_rmc.controller.HomeItemRVImageRetriever" />
+
+        <variable
+            name="crud"
+            type="com.example.uas_pbp_rmc.controller.HomeItemRVCRUDSet"/>
+        <variable
+            name="crudListener"
+            type="com.example.uas_pbp_rmc.controller.HomeItemRVCRUDListener"/>
     </data>
 
     <com.example.uas_pbp_rmc.layout.SquareLayout
