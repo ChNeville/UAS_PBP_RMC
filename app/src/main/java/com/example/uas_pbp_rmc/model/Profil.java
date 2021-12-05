@@ -9,8 +9,6 @@ import java.io.ByteArrayOutputStream;
 
 public class Profil {
     String username;
-    String password;
-    String confirmID;
     String membership;
     String nama;
     Integer age;
@@ -24,14 +22,6 @@ public class Profil {
     public void setUsername(String username) {
         this.username = username;
     }
-
-    public String getPassword() { return password; }
-
-    public void setPassword(String password) { this.password = password; }
-
-    public String getConfirmID() { return confirmID; }
-
-    public void setConfirmID(String confirmID) { this.confirmID = confirmID; }
 
     public String getMembership() {
         return membership;
