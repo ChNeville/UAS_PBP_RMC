@@ -58,7 +58,7 @@ public class HomeItemRVController
     @Override
     public void itemClicked(int index) {
         Intent toDetailActivity = new Intent(activity, DetailActivity.class);
-        toDetailActivity.putExtra("itemID", index);
+        toDetailActivity.putExtra("itemID", "");
         activity.startActivityForResult(toDetailActivity,24);
     }
 

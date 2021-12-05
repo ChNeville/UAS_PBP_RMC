@@ -21,7 +21,7 @@ public interface retrofitFirebaseInterface {
 
     @Headers({"Accept: application/json"})
     @GET("user/{id}")
-    Call<ProfilResponse> getProfilById(@Path("id") long id);
+    Call<ProfilResponse> getProfilById(@Path("id") String id);
 
     @Headers({"Accept: application/json"})
     @POST("user")
@@ -29,11 +29,11 @@ public interface retrofitFirebaseInterface {
 
     @Headers({"Accept: application/json"})
     @DELETE("user/{id}")
-    Call<ProfilResponse> deleteProfil(@Path("id") long id);
+    Call<ProfilResponse> deleteProfil(@Path("id") String id);
 
     @Headers({"Accept: application/json"})
     @PATCH("user/{id}")
-    Call<ProfilResponse> updateProfil(@Path("id") long id, @Body Profil profil);
+    Call<ProfilResponse> updateProfil(@Path("id") String id, @Body Profil profil);
 
     //CRUD Product ----------------------------------------------
     @Headers({"Accept: application/json"})
@@ -42,7 +42,7 @@ public interface retrofitFirebaseInterface {
 
     @Headers({"Accept: application/json"})
     @GET("product/{id}")
-    Call<ProductResponse> getProductById(@Path("id") long id);
+    Call<ProductResponse> getProductById(@Path("id") String id);
 
     @Headers({"Accept: application/json"})
     @POST("product")
@@ -50,9 +50,9 @@ public interface retrofitFirebaseInterface {
 
     @Headers({"Accept: application/json"})
     @DELETE("product/{id}")
-    Call<ProductResponse> deleteProduct(@Path("id") long id);
+    Call<ProductResponse> deleteProduct(@Path("id") String id);
 
     @Headers({"Accept: application/json"})
     @PATCH("product/{id}")
-    Call<ProductResponse> updateProduct(@Path("id") long id, @Body ProductItem productItem);
+    Call<ProductResponse> updateProduct(@Path("id") String id, @Body ProductItem productItem);
 }

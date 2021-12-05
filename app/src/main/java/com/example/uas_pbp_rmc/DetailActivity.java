@@ -42,7 +42,7 @@ public class DetailActivity
         mdetail_add_cart = findViewById(R.id.detail_add_cart);
         intent = getIntent();
 
-        long itemID = intent.getIntExtra("itemID",0);
+        String itemID = intent.getStringExtra("itemID");
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         binding.setDetailClickListener(this);
@@ -73,7 +73,7 @@ public class DetailActivity
         finish();
     }
 
-    private void getProductByID(long id){
+    private void getProductByID(String id){
         Call<ProductResponse> call = apiService.getProductById(id);
 
         call.enqueue(new Callback<ProductResponse>() {
@@ -88,7 +88,7 @@ public class DetailActivity
         });
     }
 
-    private void addProductToCart(long id){
+    private void addProductToCart(String id){
         Call<ProductResponse> call = apiService.getProductById(id);
 
         call.enqueue(new Callback<ProductResponse>() {
