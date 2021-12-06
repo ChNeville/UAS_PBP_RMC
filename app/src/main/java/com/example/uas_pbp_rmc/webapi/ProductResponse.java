@@ -7,9 +7,14 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class ProductResponse {
-    @SerializedName("product")
+    private String message;
+
+    @SerializedName("data")
     private List<ProductItem> productList;
 
+    public String getMessage() {
+        return message;
+    }
     public List<ProductItem> getProductList() {
         return productList;
     }
@@ -17,4 +22,5 @@ public class ProductResponse {
     public void setProductList(List<ProductItem> productList) {
         this.productList = productList;
     }
+
 }
