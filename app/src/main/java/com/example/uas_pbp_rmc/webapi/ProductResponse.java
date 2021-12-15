@@ -9,11 +9,14 @@ import java.util.List;
 public class ProductResponse {
     private String message;
 
-    @SerializedName("data")
+    @SerializedName("product")
     private List<ProductItem> productList;
 
     public String getMessage() {
         return message;
+    }
+    public void setMessage(String message) {
+        this.message = message;
     }
     public List<ProductItem> getProductList() {
         return productList;

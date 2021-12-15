@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ProfilResponse {
     private String message;
-    @SerializedName("data")
+    @SerializedName("profil")
     private List<Profil> profilList;
 
     public String getMessage() {
