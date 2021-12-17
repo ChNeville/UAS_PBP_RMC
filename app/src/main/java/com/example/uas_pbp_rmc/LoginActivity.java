@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     AdminState adminState;
@@ -33,6 +34,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            finish();
+        }
 
         adminState = new AdminState(this);
         mAuth = FirebaseAuth.getInstance();
@@ -88,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         if((emailname == "admin@mail.com") && (password == "admin")){ // TODO : Kalau demonstrasi inget email dan password utk admin
             adminState.setAdminState(true);
         }else {
-            mAuth.createUserWithEmailAndPassword(
+            mAuth.signInWithEmailAndPassword(
                     emailname,
                     password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -105,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setRegistration(){
-        mAuth.signInWithEmailAndPassword(
+        mAuth.createUserWithEmailAndPassword(
                 emailInput.getText().toString(),
                 passInput.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

@@ -7,6 +7,9 @@
         <variable
             name="profile"
             type="com.example.uas_pbp_rmc.ProfilFragment" />
+        <variable
+            name="profileClickListener"
+            type="com.example.uas_pbp_rmc.controller.ProfilViewClickListener" />
     </data>
 
     <LinearLayout
@@ -151,7 +154,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="@color/purple_500"
-            android:text="editprofil"
+            android:text="edit profil"
             android:textAlignment="center"
             app:backgroundTint="@color/purple_500"
             app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
@@ -166,6 +169,7 @@
             android:textAlignment="center"
             app:backgroundTint="@color/purple_500"
             android:layout_gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/address" />
+            app:layout_constraintTop_toBottomOf="@+id/address"
+            android:onClick="@{() -> profileClickListener.onProfilLogoutClicked()}"/>
     </LinearLayout>
 </layout>

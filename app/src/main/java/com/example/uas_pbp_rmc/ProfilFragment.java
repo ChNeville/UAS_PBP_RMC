@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.uas_pbp_rmc.controller.ProfilViewClickListener;
 import com.example.uas_pbp_rmc.databinding.FragmentProfilBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
  * Use the {@link ProfilFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfilFragment extends Fragment {
+public class ProfilFragment extends Fragment implements ProfilViewClickListener {
     FirebaseAuth mAuth;
     String username;
 
@@ -56,6 +57,23 @@ public class ProfilFragment extends Fragment {
         }
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profil,container,false);
+        binding.setProfileClickListener(this);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onProfilLogoutClicked() {
+        mAuth.signOut();
+        changeFragment(new HomeFragment());
+    }
+
+    public boolean changeFragment(Fragment fragment){
+        if (fragment != null) {
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_view, fragment)
+                    .commit();
+            return true;
+        }return false;
     }
 }
