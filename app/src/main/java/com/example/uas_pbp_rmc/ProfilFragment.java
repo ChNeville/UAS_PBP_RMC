@@ -1,5 +1,7 @@
 package com.example.uas_pbp_rmc;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -10,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.uas_pbp_rmc.databinding.FragmentProfilBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +21,9 @@ import com.example.uas_pbp_rmc.databinding.FragmentProfilBinding;
  * create an instance of this fragment.
  */
 public class ProfilFragment extends Fragment {
+    FirebaseAuth mAuth;
+    String username;
+
     FragmentProfilBinding binding;
 
     public ProfilFragment() {
@@ -38,6 +45,16 @@ public class ProfilFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            username = currentUser.getDisplayName();
+        }else{
+            Activity activity = getActivity();
+            Intent intent = new Intent(activity,LoginActivity.class);
+            activity.startActivity(intent);
+        }
+
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profil,container,false);
         return binding.getRoot();
     }

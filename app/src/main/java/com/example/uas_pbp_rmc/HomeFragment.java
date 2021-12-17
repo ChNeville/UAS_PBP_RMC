@@ -31,7 +31,6 @@ import retrofit2.Response;
  */
 public class HomeFragment extends Fragment {
     ApiWebProduct apiService;
-    List<ProductItem> productItemList;
 
     FragmentHomeBinding binding;
     HomeItemRVController rvController;
@@ -46,7 +45,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        productItemList = new ArrayList<ProductItem>();
         apiService = ApiServer.getClient().create(ApiWebProduct.class);
     }
 
@@ -56,7 +54,7 @@ public class HomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home,container,false);
         binding.setActivity(this);
 
-        rvController = new HomeItemRVController(productItemList, container.getContext(), getActivity());
+        rvController = new HomeItemRVController(new ArrayList<ProductItem>(), container.getContext(), getActivity());
         binding.setRvadapter(rvController);
 
         fetchProduct();
@@ -71,12 +69,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 if (response.isSuccessful()){
-                    productItemList = response.body().getProductList();
+                    rvController.setItemList(response.body().getProductList());
                     rvController.notifyDataSetChanged();
 
-                    Toast.makeText(getContext(),response.message(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getContext(),response.message(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
                 }
             }
             @Override

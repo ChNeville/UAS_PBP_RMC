@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiWebProfil {
@@ -29,6 +30,6 @@ public interface ApiWebProfil {
     Call<ProfilResponse> deleteProfil(@Path("id") int id);
 
     @Headers({"Accept: application/json"})
-    @PATCH("profil/{id}")
+    @PUT("profil/{id}")
     Call<ProfilResponse> updateProfil(@Path("id") int id, @Body Profil profil);
 }

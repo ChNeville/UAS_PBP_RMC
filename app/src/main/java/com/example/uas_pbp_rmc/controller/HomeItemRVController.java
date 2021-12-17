@@ -58,13 +58,23 @@ public class HomeItemRVController
     }
 
     @Override
-    public int getItemCount() { return itemList.size(); }
+    public int getItemCount() {
+        return itemList.size();
+    }
 
     @Override
     public void itemClicked(int index) {
         Intent toDetailActivity = new Intent(activity, DetailActivity.class);
-        toDetailActivity.putExtra("itemID", index);
+        toDetailActivity.putExtra("itemID", itemList.get(index).id);
         activity.startActivityForResult(toDetailActivity,24);
+    }
+
+    public List<ProductItem> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<ProductItem> itemList) {
+        this.itemList = itemList;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
