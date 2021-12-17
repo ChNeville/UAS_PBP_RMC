@@ -1,18 +1,22 @@
 package com.example.uas_pbp_rmc.model;
 
 public class ProductItem {
+    public int id;
     public String productName;
     public float price;
     public String productInfo;
     public String imageURL;
 
-    public ProductItem(String productName, float price, String productInfo, String imageURL){
+    public ProductItem(int id, String productName, float price, String productInfo, String imageURL){
+        this.id = id;
         this.productName = productName;
         this.price = price;
         this.productInfo = productInfo;
         this.imageURL = imageURL;
     }
 
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
     public String getProductName() {
         return productName;
     }

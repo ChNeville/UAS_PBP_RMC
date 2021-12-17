@@ -29,6 +29,7 @@ public class HomeItemRVController
     private List<ProductItem> itemList;
     private Context context;
     private Activity activity;
+    private LayoutInflater layoutInflater;
 
     public HomeItemRVController(List<ProductItem> itemList, Context context, Activity activity){
         this.itemList = itemList;
@@ -39,9 +40,11 @@ public class HomeItemRVController
     @NonNull
     @Override
     public HomeItemRVController.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if(layoutInflater == null){
+            layoutInflater = LayoutInflater.from(parent.getContext());
+        }
         ListItemStoreBinding binding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.getContext()),
-                R.layout.list_item_store,
+                layoutInflater, R.layout.list_item_store,
                 parent, false);
         return new ViewHolder(binding);
     }
@@ -55,131 +58,7 @@ public class HomeItemRVController
     }
 
     @Override
-    public int getItemCount() {
-        itemList = new List<ProductItem>() {
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(@Nullable Object o) {
-                return false;
-            }
-
-            @NonNull
-            @Override
-            public Iterator<ProductItem> iterator() {
-                return null;
-            }
-
-            @NonNull
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @NonNull
-            @Override
-            public <T> T[] toArray(@NonNull T[] ts) {
-                return null;
-            }
-
-            @Override
-            public boolean add(ProductItem productItem) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(@Nullable Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(@NonNull Collection<?> collection) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(@NonNull Collection<? extends ProductItem> collection) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(int i, @NonNull Collection<? extends ProductItem> collection) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(@NonNull Collection<?> collection) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(@NonNull Collection<?> collection) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-
-            @Override
-            public ProductItem get(int i) {
-                return null;
-            }
-
-            @Override
-            public ProductItem set(int i, ProductItem productItem) {
-                return null;
-            }
-
-            @Override
-            public void add(int i, ProductItem productItem) {
-
-            }
-
-            @Override
-            public ProductItem remove(int i) {
-                return null;
-            }
-
-            @Override
-            public int indexOf(@Nullable Object o) {
-                return 0;
-            }
-
-            @Override
-            public int lastIndexOf(@Nullable Object o) {
-                return 0;
-            }
-
-            @NonNull
-            @Override
-            public ListIterator<ProductItem> listIterator() {
-                return null;
-            }
-
-            @NonNull
-            @Override
-            public ListIterator<ProductItem> listIterator(int i) {
-                return null;
-            }
-
-            @NonNull
-            @Override
-            public List<ProductItem> subList(int i, int i1) {
-                return null;
-            }
-        };
-        return itemList.size();
-    }
+    public int getItemCount() { return itemList.size(); }
 
     @Override
     public void itemClicked(int index) {
