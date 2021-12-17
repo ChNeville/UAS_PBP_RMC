@@ -66,15 +66,19 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        userInput.setVisibility(View.GONE);
     }
 
     private void determineLogin(Boolean state){
         if(state == true){
             UIContext = "SIGNIN";
             loginAction.setText("sign in");
+            userInput.setVisibility(View.VISIBLE);
         } else {
             UIContext = "LOGIN";
             loginAction.setText("login");
+            userInput.setVisibility(View.GONE);
         }
     }
 
