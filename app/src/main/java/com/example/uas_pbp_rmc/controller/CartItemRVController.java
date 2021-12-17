@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,13 +13,10 @@ import com.example.uas_pbp_rmc.BR;
 import com.example.uas_pbp_rmc.R;
 import com.example.uas_pbp_rmc.databinding.ListItemCartBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
-import com.example.uas_pbp_rmc.webapi.ProductResponse;
+import com.example.uas_pbp_rmc.webapi.ProductListResponse;
 import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -95,17 +91,17 @@ public class CartItemRVController
     }
 
     private void getProductDB(){
-        Call<ProductResponse> call = apiService.getAllProduct();
+        Call<ProductListResponse> call = apiService.getAllProduct();
 
-        call.enqueue(new Callback<ProductResponse>() {
+        call.enqueue(new Callback<ProductListResponse>() {
             @Override
-            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+            public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
                 if (response.isSuccessful()){
                     itemDB = response.body().getProductList();
                 }
             }
             @Override
-            public void onFailure(Call<ProductResponse> call, Throwable t) {}
+            public void onFailure(Call<ProductListResponse> call, Throwable t) {}
         });
     }
 }

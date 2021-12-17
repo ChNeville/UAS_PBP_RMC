@@ -13,12 +13,11 @@ import android.widget.Toast;
 import com.example.uas_pbp_rmc.controller.HomeItemRVController;
 import com.example.uas_pbp_rmc.databinding.FragmentHomeBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
-import com.example.uas_pbp_rmc.webapi.ProductResponse;
+import com.example.uas_pbp_rmc.webapi.ProductListResponse;
 import com.example.uas_pbp_rmc.webapi.ApiServer;
 import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,11 +62,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void fetchProduct(){
-        Call<ProductResponse> call = apiService.getAllProduct();
+        Call<ProductListResponse> call = apiService.getAllProduct();
 
-        call.enqueue(new Callback<ProductResponse>() {
+        call.enqueue(new Callback<ProductListResponse>() {
             @Override
-            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+            public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
                 if (response.isSuccessful()){
                     rvController.setItemList(response.body().getProductList());
                     rvController.notifyDataSetChanged();
@@ -78,7 +77,7 @@ public class HomeFragment extends Fragment {
                 }
             }
             @Override
-            public void onFailure(Call<ProductResponse> call, Throwable t) {
+            public void onFailure(Call<ProductListResponse> call, Throwable t) {
                 Toast.makeText(getContext(),"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
             }
         });

@@ -83,15 +83,15 @@ public class DetailActivity
     private void getProductByID(int id){
         Context ctx = this;
 
-        Call<ProductResponse> call = apiService.getAllProduct();
+        Call<ProductResponse> call = apiService.getProductById(id);
 
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 if (response.isSuccessful()){
                     Toast.makeText(ctx,response.body().getMessage(),Toast.LENGTH_SHORT).show();
-                    if(response.body().getProductList().size() > 0) {
-                        ProductItem np = response.body().getProductList().get(0);
+                    if(response.body().getProduct() != null) {
+                        ProductItem np = response.body().getProduct();
                         productItem.setId(np.id);
                         productItem.setImageURL(np.imageURL);
                         productItem.setProductName(np.getProductName());

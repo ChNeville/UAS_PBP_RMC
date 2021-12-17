@@ -74,7 +74,7 @@ public class ProductEditActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 if (response.isSuccessful()){
-                    dataSet = response.body().getProductList().get(0);
+                    dataSet = response.body().getProduct();
                 }
             }
             @Override
