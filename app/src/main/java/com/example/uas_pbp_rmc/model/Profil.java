@@ -5,7 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import com.google.gson.Gson;
+
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 public class Profil {
     String username; // TODO: Username pakai email ram
@@ -64,6 +67,7 @@ public class Profil {
         this.picture = picture;
     }
 
+    //Decode Gambar dari String
     public Bitmap getPictureBitmap(){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte[] imageBytes = byteArrayOutputStream.toByteArray();
@@ -72,6 +76,7 @@ public class Profil {
         return decodedImage;
     }
 
+    //Encode Gambar ke String
     public void setPictureBitmap(Bitmap bitmap){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
@@ -85,5 +90,32 @@ public class Profil {
 
     public void setUserData(String userData) {
         this.userData = userData;
+    }
+
+    public List<Integer> getCartData(){
+        Gson gson = new Gson();
+        DUserData pdata = gson.fromJson(userData, DUserData.class);
+        return pdata.getList();
+    }
+
+    public void setCartData(List<Integer> list){
+        Gson gson = new Gson();
+        DUserData pdata = new DUserData(list);
+    }
+
+    private class DUserData{
+        List<Integer> list;
+
+        public DUserData(List<Integer> list){
+            this.list = list;
+        }
+
+        public List<Integer> getList() {
+            return list;
+        }
+
+        public void setList(List<Integer> list) {
+            this.list = list;
+        }
     }
 }

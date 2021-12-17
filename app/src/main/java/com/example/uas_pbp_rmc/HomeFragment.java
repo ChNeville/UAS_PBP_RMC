@@ -8,14 +8,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.uas_pbp_rmc.controller.HomeItemRVController;
 import com.example.uas_pbp_rmc.databinding.FragmentHomeBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
 import com.example.uas_pbp_rmc.webapi.ProductResponse;
-import com.example.uas_pbp_rmc.webapi.retrofitFirebase;
-import com.example.uas_pbp_rmc.webapi.retrofitFirebaseInterface;
+import com.example.uas_pbp_rmc.webapi.ApiServer;
+import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,7 +30,7 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-    retrofitFirebaseInterface apiService;
+    ApiWebProduct apiService;
     List<ProductItem> productItemList;
 
     FragmentHomeBinding binding;
@@ -44,7 +46,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        apiService = retrofitFirebase.getClient().create(retrofitFirebaseInterface.class);
+        productItemList = new ArrayList<ProductItem>();
+        apiService = ApiServer.getClient().create(ApiWebProduct.class);
     }
 
     @Override
@@ -70,10 +73,16 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful()){
                     productItemList = response.body().getProductList();
                     rvController.notifyDataSetChanged();
+
+                    Toast.makeText(getContext(),response.message(),Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(),response.message(),Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(Call<ProductResponse> call, Throwable t) {}
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
+                Toast.makeText(getContext(),"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

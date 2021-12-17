@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.example.uas_pbp_rmc.model.ProductItem;
 import com.example.uas_pbp_rmc.webapi.ProductResponse;
-import com.example.uas_pbp_rmc.webapi.retrofitFirebaseInterface;
+import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,7 +18,7 @@ import retrofit2.Response;
 public class ProductEditActivity extends AppCompatActivity {
 
     Intent intent;
-    retrofitFirebaseInterface apiService;
+    ApiWebProduct apiService;
 
     String activityContext = "EDIT";
 

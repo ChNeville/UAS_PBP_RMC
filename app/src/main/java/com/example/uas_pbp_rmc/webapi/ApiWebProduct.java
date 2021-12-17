@@ -14,29 +14,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 // TODO : Rangkai routing databasenya kyk gini Rama
-public interface retrofitFirebaseInterface {
-    //CRUD Profil ----------------------------------------------
-    @Headers({"Accept: application/json"})
-    @GET("profil")
-    Call<ProfilResponse> getAllProfil();
-
-    @Headers({"Accept: application/json"})
-    @GET("profil/{id}")
-    Call<ProfilResponse> getProfilById(@Path("id") int id);
-
-    @Headers({"Accept: application/json"})
-    @POST("profil")
-    Call<ProfilResponse> createProfil(@Body Profil profil);
-
-    @Headers({"Accept: application/json"})
-    @DELETE("profil/{id}")
-    Call<ProfilResponse> deleteProfil(@Path("id") int id);
-
-    @Headers({"Accept: application/json"})
-    @PATCH("profil/{id}")
-    Call<ProfilResponse> updateProfil(@Path("id") int id, @Body Profil profil);
-
-    //CRUD Product ----------------------------------------------
+public interface ApiWebProduct {
     @Headers({"Accept: application/json"})
     @GET("product")
     Call<ProductResponse> getAllProduct();

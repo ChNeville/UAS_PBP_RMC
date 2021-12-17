@@ -15,7 +15,7 @@ import com.example.uas_pbp_rmc.R;
 import com.example.uas_pbp_rmc.databinding.ListItemCartBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
 import com.example.uas_pbp_rmc.webapi.ProductResponse;
-import com.example.uas_pbp_rmc.webapi.retrofitFirebaseInterface;
+import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -29,7 +29,7 @@ import retrofit2.Response;
 public class CartItemRVController
         extends RecyclerView.Adapter<CartItemRVController.ViewHolder>
         implements CartItemRVClickListener{
-    retrofitFirebaseInterface apiService;
+    ApiWebProduct apiService;
 
     Context context;
     Activity activity;

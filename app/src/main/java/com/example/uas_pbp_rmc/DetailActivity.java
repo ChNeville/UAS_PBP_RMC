@@ -15,10 +15,8 @@ import com.example.uas_pbp_rmc.databinding.ActivityDetailBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
 
 import com.example.uas_pbp_rmc.webapi.ProductResponse;
-import com.example.uas_pbp_rmc.webapi.retrofitFirebaseInterface;
+import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +26,7 @@ public class DetailActivity
         extends AppCompatActivity
         implements DetailClickListener{
 
-    retrofitFirebaseInterface apiService;
+    ApiWebProduct apiService;
     ProductItem productItem;
     int itemID;
 
