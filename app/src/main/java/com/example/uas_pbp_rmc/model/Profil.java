@@ -11,13 +11,19 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class Profil {
-    String username; // TODO: Username pakai email ram
-    String membership;
-    String nama;
-    Integer age;
-    String address;
-    String picture;
-    String userData;
+    String username = ""; // TODO: Username pakai email ram
+    String membership = "";
+    String nama = "";
+    Integer age = 0;
+    String address = "";
+    String picture = "";
+    String userData = "";
+
+    public Profil(){}
+    public Profil(String username, String nama){
+        this.username = username;
+        this.nama = nama;
+    }
 
     public String getUsername() {
         return username;

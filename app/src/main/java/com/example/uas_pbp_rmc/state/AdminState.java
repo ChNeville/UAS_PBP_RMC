@@ -23,6 +23,6 @@ public class AdminState {
     }
 
     public Boolean getAdminState(){
-       return sharedPreferences.getBoolean("data", false);
+       return sharedPreferences.getBoolean("admin", false);
     }
 }

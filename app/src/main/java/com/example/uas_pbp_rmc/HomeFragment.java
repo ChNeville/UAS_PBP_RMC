@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.uas_pbp_rmc.controller.HomeItemRVController;
 import com.example.uas_pbp_rmc.databinding.FragmentHomeBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
+import com.example.uas_pbp_rmc.state.AdminState;
 import com.example.uas_pbp_rmc.webapi.ProductListResponse;
 import com.example.uas_pbp_rmc.webapi.ApiServer;
 import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
@@ -29,6 +30,8 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+    AdminState adminState;
+
     ApiWebProduct apiService;
 
     FragmentHomeBinding binding;
@@ -53,10 +56,15 @@ public class HomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home,container,false);
         binding.setActivity(this);
 
-        rvController = new HomeItemRVController(new ArrayList<ProductItem>(), container.getContext(), getActivity());
+        rvController = new HomeItemRVController(new ArrayList<ProductItem>(), apiService, container.getContext(), getActivity());
         binding.setRvadapter(rvController);
 
         fetchProduct();
+
+        adminState = new AdminState(getContext());
+        if(adminState.getAdminState() == true){
+            rvController.setAdminMode(true);
+        }
 
         return binding.getRoot();
     }
@@ -81,5 +89,15 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(),"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public boolean changeFragment(Fragment fragment){
+        if (fragment != null) {
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_view, fragment)
+                    .commit();
+            return true;
+        }return false;
     }
 }

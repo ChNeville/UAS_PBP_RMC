@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                         setLogin();
                         break;
                     }
-                    case "SIGNIN":{
+                    case "SIGNUP":{
                         setRegistration();
                         break;
                     }
@@ -79,8 +79,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void determineLogin(Boolean state){
         if(state == true){
-            UIContext = "SIGNIN";
-            loginAction.setText("sign in");
+            UIContext = "SIGNUP";
+            loginAction.setText("sign up");
             userInput.setVisibility(View.VISIBLE);
         } else {
             UIContext = "LOGIN";
@@ -92,8 +92,10 @@ public class LoginActivity extends AppCompatActivity {
     private void setLogin(){
         String emailname = emailInput.getText().toString();
         String password = passInput.getText().toString();
-        if((emailname == "admin@mail.com") && (password == "admin")){ // TODO : Kalau demonstrasi inget email dan password utk admin
+        if(emailname.equals("admin@mail.com") && password.equals("admin")){ // TODO : Kalau demonstrasi inget email dan password utk admin
             adminState.setAdminState(true);
+            Toast.makeText(LoginActivity.this, "Admin Mode Dinyalakan", Toast.LENGTH_SHORT).show();
+            finish();
         }else {
             mAuth.signInWithEmailAndPassword(
                     emailname,
@@ -103,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Login Sukses", Toast.LENGTH_SHORT).show();
+                                finish();
                             } else {
                                 Toast.makeText(LoginActivity.this, "Login Gagal", Toast.LENGTH_SHORT).show();
                             }
@@ -120,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(LoginActivity.this,"Signup Sukses, Cek Email Utk Konfirmasi",Toast.LENGTH_SHORT).show();
+                            determineLogin(false);
                         } else {
                             Toast.makeText(LoginActivity.this,"Signup Gagal",Toast.LENGTH_SHORT).show();
                         }

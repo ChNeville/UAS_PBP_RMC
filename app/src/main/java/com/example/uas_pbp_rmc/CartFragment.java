@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.uas_pbp_rmc.controller.CartItemRVController;
 import com.example.uas_pbp_rmc.databinding.FragmentCartBinding;
+import com.example.uas_pbp_rmc.state.AdminState;
 import com.google.android.gms.actions.ItemListIntents;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,7 +27,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class CartFragment extends Fragment {
-
+    AdminState adminState;
     FirebaseAuth mAuth;
     String username;
 
@@ -44,6 +45,7 @@ public class CartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        adminState = new AdminState(getContext());
     }
 
     @Override
@@ -51,8 +53,9 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if(currentUser != null && adminState.getAdminState() != true){
             username = currentUser.getDisplayName();
+        }else if(adminState.getAdminState() == true){
         }else{
             Activity activity = getActivity();
             Intent intent = new Intent(activity,LoginActivity.class);
