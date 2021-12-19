@@ -154,10 +154,12 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<ProfilResponse>() {
             @Override
             public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
-                if (response.isSuccessful()){
-                    Toast.makeText(ctx,response.body().getMessage(),Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(ctx,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                if(response.body() != null){
+                    if (response.isSuccessful()){
+                        Toast.makeText(ctx,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(ctx,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
             @Override
