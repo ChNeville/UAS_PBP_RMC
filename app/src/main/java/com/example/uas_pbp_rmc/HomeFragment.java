@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.uas_pbp_rmc.controller.HomeItemRVController;
@@ -38,6 +39,8 @@ public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
     HomeItemRVController rvController;
 
+    Button adminAddFAB;
+
     Context context;
 
     public HomeFragment() {}
@@ -61,6 +64,15 @@ public class HomeFragment extends Fragment {
 
         context = getContext();
 
+        adminAddFAB = getView().findViewById(R.id.home_admin_add_product);
+        adminAddFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Buka activity addedit buat produk di sini!
+            }
+        });
+        adminAddFAB.setVisibility(View.GONE);
+
         rvController = new HomeItemRVController(new ArrayList<ProductItem>(), apiService, container.getContext(), getActivity());
         binding.setRvadapter(rvController);
 
@@ -69,6 +81,7 @@ public class HomeFragment extends Fragment {
         adminState = new AdminState(getContext());
         if(adminState.getAdminState() == true){
             rvController.setAdminMode(true);
+            adminAddFAB.setVisibility(View.VISIBLE);
         }
 
         return binding.getRoot();
