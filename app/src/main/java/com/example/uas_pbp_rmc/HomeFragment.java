@@ -1,5 +1,6 @@
 package com.example.uas_pbp_rmc;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -37,6 +38,8 @@ public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
     HomeItemRVController rvController;
 
+    Context context;
+
     public HomeFragment() {}
 
     public static HomeFragment newInstance(String param1, String param2) {
@@ -55,6 +58,8 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home,container,false);
         binding.setActivity(this);
+
+        context = getContext();
 
         rvController = new HomeItemRVController(new ArrayList<ProductItem>(), apiService, container.getContext(), getActivity());
         binding.setRvadapter(rvController);
@@ -79,14 +84,14 @@ public class HomeFragment extends Fragment {
                     rvController.setItemList(response.body().getProductList());
                     rvController.notifyDataSetChanged();
 
-                    Toast.makeText(getContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<ProductListResponse> call, Throwable t) {
-                Toast.makeText(getContext(),"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
             }
         });
     }

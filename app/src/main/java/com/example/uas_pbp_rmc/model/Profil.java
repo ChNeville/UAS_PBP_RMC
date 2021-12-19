@@ -11,13 +11,14 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class Profil {
-    String username = ""; // TODO: Username pakai email ram
-    String membership = "";
-    String nama = "";
-    Integer age = 0;
-    String address = "";
-    String picture = "";
-    String userData = "";
+    public int id = 0;
+    public String username = ""; // TODO: Username pakai email ram
+    public String membership = "";
+    public String nama = "";
+    public int age = 0;
+    public String address = "";
+    public String picture = "";
+    public String userData = "";
 
     public Profil(){}
     public Profil(String username, String nama){
@@ -107,21 +108,5 @@ public class Profil {
     public void setCartData(List<Integer> list){
         Gson gson = new Gson();
         DUserData pdata = new DUserData(list);
-    }
-
-    private class DUserData{
-        List<Integer> list;
-
-        public DUserData(List<Integer> list){
-            this.list = list;
-        }
-
-        public List<Integer> getList() {
-            return list;
-        }
-
-        public void setList(List<Integer> list) {
-            this.list = list;
-        }
     }
 }

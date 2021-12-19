@@ -16,8 +16,4 @@ public class ProfilListResponse {
     public List<Profil> getProfilList() {
         return profilList;
     }
-
-    public void setProfilList(List<Profil> profilList) {
-        this.profilList = profilList;
-    }
 }

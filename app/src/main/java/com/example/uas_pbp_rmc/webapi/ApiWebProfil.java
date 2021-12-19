@@ -22,6 +22,10 @@ public interface ApiWebProfil {
     Call<ProfilResponse> getProfilById(@Path("id") int id);
 
     @Headers({"Accept: application/json"})
+    @GET("profil/username/{username}")
+    Call<ProfilResponse> getProfilByUsername(@Path("username") String username);
+
+    @Headers({"Accept: application/json"})
     @POST("profil")
     Call<ProfilResponse> createProfil(@Body Profil profil);
 

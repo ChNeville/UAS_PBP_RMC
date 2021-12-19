@@ -9,4 +9,11 @@ public class ProfilResponse {
     private String message;
     @SerializedName("profil")
     private Profil profil;
+
+    public String getMessage() {
+        return message;
+    }
+    public Profil getProfil() {
+        return profil;
+    }
 }

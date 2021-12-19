@@ -3,6 +3,7 @@ package com.example.uas_pbp_rmc;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,15 +12,25 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.uas_pbp_rmc.model.Profil;
 import com.example.uas_pbp_rmc.state.AdminState;
+import com.example.uas_pbp_rmc.webapi.ApiServer;
+import com.example.uas_pbp_rmc.webapi.ApiWebProfil;
+import com.example.uas_pbp_rmc.webapi.ProductListResponse;
+import com.example.uas_pbp_rmc.webapi.ProfilResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginActivity extends AppCompatActivity {
     AdminState adminState;
+    ApiWebProfil apiService;
     private FirebaseAuth mAuth;
 
     String UIContext = "LOGIN";
@@ -40,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         if(currentUser != null){
             finish();
         }
+
+        apiService = ApiServer.getClient().create(ApiWebProfil.class);
 
         adminState = new AdminState(this);
         mAuth = FirebaseAuth.getInstance();
@@ -115,19 +128,42 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setRegistration(){
+        Context ctx = this;
+
+        String emailname = emailInput.getText().toString();
+        String username = userInput.getText().toString();
+        String password = passInput.getText().toString();
         mAuth.createUserWithEmailAndPassword(
-                emailInput.getText().toString(),
-                passInput.getText().toString())
+                emailname, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this,"Signup Sukses, Cek Email Utk Konfirmasi",Toast.LENGTH_SHORT).show();
+                            registerUserData(ctx, emailname, username);
+                            mAuth.signOut();
                             determineLogin(false);
                         } else {
                             Toast.makeText(LoginActivity.this,"Signup Gagal",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+    private void registerUserData(Context ctx, String emailname, String username){
+        Profil profil = new Profil(emailname, username);
+        Call<ProfilResponse> call = apiService.createProfil(profil);
+        call.enqueue(new Callback<ProfilResponse>() {
+            @Override
+            public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
+                if (response.isSuccessful()){
+                    Toast.makeText(ctx,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(ctx,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ProfilResponse> call, Throwable t) {
+                Toast.makeText(ctx,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
