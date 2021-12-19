@@ -1,6 +1,7 @@
 package com.example.uas_pbp_rmc;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,16 +11,25 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.uas_pbp_rmc.controller.CartItemRVController;
 import com.example.uas_pbp_rmc.databinding.FragmentCartBinding;
+import com.example.uas_pbp_rmc.model.Profil;
 import com.example.uas_pbp_rmc.state.AdminState;
+import com.example.uas_pbp_rmc.webapi.ApiServer;
+import com.example.uas_pbp_rmc.webapi.ApiWebProfil;
+import com.example.uas_pbp_rmc.webapi.ProfilResponse;
 import com.google.android.gms.actions.ItemListIntents;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,9 +39,12 @@ import java.util.List;
 public class CartFragment extends Fragment {
     AdminState adminState;
     FirebaseAuth mAuth;
+    ApiWebProfil apiService;
     String username;
 
     FragmentCartBinding binding;
+
+    CartItemRVController rvController;
 
     public CartFragment() {}
 
@@ -46,6 +59,7 @@ public class CartFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adminState = new AdminState(getContext());
+        apiService = ApiServer.getClient().create(ApiWebProfil.class);
     }
 
     @Override
@@ -54,7 +68,7 @@ public class CartFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null && adminState.getAdminState() != true){
-            username = currentUser.getDisplayName();
+            username = currentUser.getEmail();
         }else if(adminState.getAdminState() == true){
         }else{
             Activity activity = getActivity();
@@ -65,13 +79,9 @@ public class CartFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_cart,container,false);
         binding.setActivity(this);
 
-        CartItemRVController rvController = new CartItemRVController(new ArrayList<Integer>(), container.getContext(), getActivity());
+        rvController = new CartItemRVController(new ArrayList<Integer>() ,username, apiService, container.getContext(), getActivity());
         binding.setRvadapter(rvController);
 
         return binding.getRoot();
-    }
-
-    private void getUserCartData(String username){
-
     }
 }

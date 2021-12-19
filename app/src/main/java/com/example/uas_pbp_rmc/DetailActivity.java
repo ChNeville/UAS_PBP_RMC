@@ -15,10 +15,18 @@ import com.example.uas_pbp_rmc.controller.DetailClickListener;
 import com.example.uas_pbp_rmc.databinding.ActivityDetailBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
 
+import com.example.uas_pbp_rmc.model.Profil;
+import com.example.uas_pbp_rmc.state.AdminState;
 import com.example.uas_pbp_rmc.webapi.ApiServer;
+import com.example.uas_pbp_rmc.webapi.ApiWebProfil;
 import com.example.uas_pbp_rmc.webapi.ProductResponse;
 import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
+import com.example.uas_pbp_rmc.webapi.ProfilResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,8 +37,11 @@ public class DetailActivity
         implements DetailClickListener{
 
     ApiWebProduct apiService;
+    ApiWebProfil apiServProf;
     ProductItem productItem;
     int itemID;
+
+    String username = "";
 
     Intent intent;
 
@@ -43,9 +54,17 @@ public class DetailActivity
         mdetail_add_cart = findViewById(R.id.detail_add_cart);
         intent = getIntent();
 
+        AdminState adminState = new AdminState(this);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null && adminState.getAdminState() != true){
+            username = currentUser.getEmail();
+        }
+
         itemID = intent.getIntExtra("itemID", -1);
 
         apiService = ApiServer.getClient().create(ApiWebProduct.class);
+        apiServProf = ApiServer.getClient().create(ApiWebProfil.class);
 
         productItem = new ProductItem(-1, "DUMMY", 0, "","");
 
@@ -74,8 +93,7 @@ public class DetailActivity
     @Override
     public void cartAddClicked() {
         addProductToCart(itemID);
-        PushNotification("Notification From HP SECOND", "Produk Berhasil Masuk Keranjang!");
-
+        //PushNotification("Notification From HP SECOND", "Produk Berhasil Masuk Keranjang!");
         setResult(Activity.RESULT_OK);
         finish();
     }
@@ -110,18 +128,38 @@ public class DetailActivity
     }
 
     private void addProductToCart(int id){
-        /*
-        Call<ProductResponse> call = apiService.getProductById(id);
+        Context context = this;
 
-        call.enqueue(new Callback<ProductResponse>() {
+        if(username.equals("")){
+            Activity activity = this;
+            Intent intent = new Intent(activity,LoginActivity.class);
+            activity.startActivity(intent);
+        }
+
+        Call<ProfilResponse> call = apiServProf.getProfilByUsername(username);
+
+        call.enqueue(new Callback<ProfilResponse>() {
             @Override
-            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+            public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
                 if (response.isSuccessful()){
-                    productItem = response.body().getProductList().get(0);
+                    Profil prof = response.body().getProfil();
+                    prof.getCartData().add(id);
+
+                    call = apiServProf.updateProfil(response.body().getProfil().id, prof);
+                    call.enqueue(new Callback<ProfilResponse>() {
+                        @Override
+                        public void onResponse(Call<ProfilResponse> c2, Response<ProfilResponse> r2) {
+                            Toast.makeText(context, "Item masuk ke dalam cart!", Toast.LENGTH_SHORT).show();
+                        }
+                        @Override
+                        public void onFailure(Call<ProfilResponse> c2, Throwable t2) {
+                            Toast.makeText(context,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
             @Override
-            public void onFailure(Call<ProductResponse> call, Throwable t) {}
-        });*/
+            public void onFailure(Call<ProfilResponse> call, Throwable t) {}
+        });
     }
 }

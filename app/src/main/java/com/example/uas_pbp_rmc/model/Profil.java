@@ -12,6 +12,7 @@ import com.example.uas_pbp_rmc.BR;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Profil extends BaseObservable {
@@ -33,6 +34,14 @@ public class Profil extends BaseObservable {
         this.address = "No Address";
         this.picture = "NONE";
         this.userData = "invalid";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Bindable
@@ -119,6 +128,9 @@ public class Profil extends BaseObservable {
     }
 
     public List<Integer> getCartData(){
+        if(userData.equals("invalid")){
+            return new ArrayList<Integer>();
+        }
         Gson gson = new Gson();
         DUserData pdata = gson.fromJson(userData, DUserData.class);
         return pdata.getList();
