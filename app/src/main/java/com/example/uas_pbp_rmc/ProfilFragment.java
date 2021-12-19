@@ -1,6 +1,7 @@
 package com.example.uas_pbp_rmc;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,13 +11,23 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.uas_pbp_rmc.controller.ProfilViewClickListener;
 import com.example.uas_pbp_rmc.databinding.FragmentProfilBinding;
 import com.example.uas_pbp_rmc.model.Profil;
 import com.example.uas_pbp_rmc.state.AdminState;
+import com.example.uas_pbp_rmc.webapi.ApiServer;
+import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
+import com.example.uas_pbp_rmc.webapi.ApiWebProfil;
+import com.example.uas_pbp_rmc.webapi.ProductListResponse;
+import com.example.uas_pbp_rmc.webapi.ProfilResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class ProfilFragment extends Fragment implements ProfilViewClickListener {
     AdminState adminState;
     FirebaseAuth mAuth;
+    ApiWebProfil apiService;
     String username;
 
     FragmentProfilBinding binding;
@@ -47,6 +59,7 @@ public class ProfilFragment extends Fragment implements ProfilViewClickListener 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adminState = new AdminState(getContext());
+        apiService = ApiServer.getClient().create(ApiWebProfil.class);
     }
 
     @Override
@@ -56,7 +69,8 @@ public class ProfilFragment extends Fragment implements ProfilViewClickListener 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null && adminState.getAdminState() != true){
-            username = currentUser.getDisplayName();
+            username = currentUser.getEmail();
+            loadUserData();
         }else if(adminState.getAdminState() == true){
             profil = new Profil("admin@mail.com","ADMINISTRATOR");
         }else{
@@ -69,6 +83,28 @@ public class ProfilFragment extends Fragment implements ProfilViewClickListener 
         binding.setProfileClickListener(this);
         binding.setProfile(profil);
         return binding.getRoot();
+    }
+
+    private void loadUserData(){
+        Context context = getContext();
+
+        Call<ProfilResponse> call = apiService.getProfilByUsername(username);
+
+        call.enqueue(new Callback<ProfilResponse>() {
+            @Override
+            public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
+                if (response.isSuccessful()){
+                    profil = response.body().getProfil();
+                    Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ProfilResponse> call, Throwable t) {
+                Toast.makeText(context,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
