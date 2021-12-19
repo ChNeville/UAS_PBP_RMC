@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -65,18 +66,19 @@ public class ProfilFragment extends Fragment implements ProfilViewClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        profil = new Profil();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null && adminState.getAdminState() != true){
             username = currentUser.getEmail();
             loadUserData();
         }else if(adminState.getAdminState() == true){
-            profil = new Profil("admin@mail.com","ADMINISTRATOR");
+            profil.setUsername("admin@mail.com");
+            profil.setNama("ADMINISTRATOR");
         }else{
             Activity activity = getActivity();
             Intent intent = new Intent(activity,LoginActivity.class);
-            activity.startActivity(intent);
+            activity.startActivityForResult(intent, 0);
         }
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profil,container,false);
@@ -94,7 +96,12 @@ public class ProfilFragment extends Fragment implements ProfilViewClickListener 
             @Override
             public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
                 if (response.isSuccessful()){
-                    profil = response.body().getProfil();
+                    Profil nprof = response.body().getProfil();
+                    profil.setUsername(nprof.getUsername());
+                    profil.setNama(nprof.getNama());
+                    profil.setAge(nprof.getAge());
+                    profil.setAddress(nprof.getAddress());
+                    profil.setMembership(nprof.getMembership());
                     Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
@@ -122,6 +129,12 @@ public class ProfilFragment extends Fragment implements ProfilViewClickListener 
             mAuth.signOut();
         }
         changeFragment(new HomeFragment());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        changeFragment(new ProfilFragment());
     }
 
     public boolean changeFragment(Fragment fragment){

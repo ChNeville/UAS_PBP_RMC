@@ -20,8 +20,9 @@ public class ProductItem extends BaseObservable {
         this.imageURL = imageURL;
     }
 
+    @Bindable
     public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public void setId(int id) { this.id = id; notifyPropertyChanged(BR.model);}
     @Bindable
     public String getProductName() {
         return productName;

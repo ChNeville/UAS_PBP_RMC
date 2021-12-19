@@ -5,12 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
+import com.example.uas_pbp_rmc.BR;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-public class Profil {
+public class Profil extends BaseObservable {
     public int id = 0;
     public String username = ""; // TODO: Username pakai email ram
     public String membership = "";
@@ -26,49 +30,59 @@ public class Profil {
         this.nama = nama;
         this.membership = "bronze";
         this.age = 0;
-        this.address = "No Adress";
+        this.address = "No Address";
         this.picture = "NONE";
         this.userData = "invalid";
     }
 
+    @Bindable
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+        notifyPropertyChanged(BR.username);
     }
 
+    @Bindable
     public String getMembership() {
         return membership;
     }
 
     public void setMembership(String membership) {
         this.membership = membership;
+        notifyPropertyChanged(BR.membership);
     }
 
+    @Bindable
     public String getNama() {
         return nama;
     }
 
     public void setNama(String nama) {
         this.nama = nama;
+        notifyPropertyChanged(BR.nama);
     }
 
+    @Bindable
     public Integer getAge() {
         return age;
     }
 
     public void setAge(Integer age) {
         this.age = age;
+        notifyPropertyChanged(BR.age);
     }
 
+    @Bindable
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+        notifyPropertyChanged(BR.address);
     }
 
     public String getPicture() {

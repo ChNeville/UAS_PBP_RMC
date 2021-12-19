@@ -80,13 +80,15 @@ public class HomeFragment extends Fragment {
         call.enqueue(new Callback<ProductListResponse>() {
             @Override
             public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
-                if (response.isSuccessful()){
-                    rvController.setItemList(response.body().getProductList());
-                    rvController.notifyDataSetChanged();
+                if(response.body()!= null){
+                    if (response.isSuccessful()){
+                        rvController.setItemList(response.body().getProductList());
+                        rvController.notifyDataSetChanged();
 
-                    Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
             @Override
