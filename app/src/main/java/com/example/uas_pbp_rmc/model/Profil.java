@@ -24,6 +24,11 @@ public class Profil {
     public Profil(String username, String nama){
         this.username = username;
         this.nama = nama;
+        this.membership = "bronze";
+        this.age = 0;
+        this.address = "No Adress";
+        this.picture = "NONE";
+        this.userData = "invalid";
     }
 
     public String getUsername() {
