@@ -21,7 +21,7 @@ import com.example.uas_pbp_rmc.R;
 import com.example.uas_pbp_rmc.databinding.ListItemStoreBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
 import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
-import com.example.uas_pbp_rmc.webapi.ProductResponse;
+import com.example.uas_pbp_rmc.webapi.ProductListResponse;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -90,11 +90,11 @@ public class HomeItemRVController
 
     @Override
     public void adminDeleteAction(int index) {
-        Call<ProductResponse> call = apiService.deleteProduct(itemList.get(index).id);
+        Call<ProductListResponse> call = apiService.deleteProduct(itemList.get(index).id);
 
-        call.enqueue(new Callback<ProductResponse>() {
+        call.enqueue(new Callback<ProductListResponse>() {
             @Override
-            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+            public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
                 if(response.body() != null){
                     if (response.isSuccessful()){
                         Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
@@ -104,7 +104,7 @@ public class HomeItemRVController
                 }
             }
             @Override
-            public void onFailure(Call<ProductResponse> call, Throwable t) {
+            public void onFailure(Call<ProductListResponse> call, Throwable t) {
                 Toast.makeText(context,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
             }
         });

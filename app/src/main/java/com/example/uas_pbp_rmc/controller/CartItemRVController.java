@@ -18,7 +18,7 @@ import com.example.uas_pbp_rmc.model.Profil;
 import com.example.uas_pbp_rmc.webapi.ApiWebProfil;
 import com.example.uas_pbp_rmc.webapi.ProductListResponse;
 import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
-import com.example.uas_pbp_rmc.webapi.ProfilResponse;
+import com.example.uas_pbp_rmc.webapi.ProfilListResponse;
 
 import java.util.List;
 
@@ -121,14 +121,14 @@ public class CartItemRVController
     }
 
     private void getUserCartData(){
-        Call<ProfilResponse> call = apiServProf.getProfilByUsername(username);
+        Call<ProfilListResponse> call = apiServProf.getProfilByUsername(username);
 
-        call.enqueue(new Callback<ProfilResponse>() {
+        call.enqueue(new Callback<ProfilListResponse>() {
             @Override
-            public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
+            public void onResponse(Call<ProfilListResponse> call, Response<ProfilListResponse> response) {
                 if (response.body() != null){
                     if(response.isSuccessful()){
-                        profil = response.body().getProfil();
+                        profil = response.body().getProfilList().get(0);
                         setItemList(profil.getCartData());
                         //Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }else{
@@ -137,21 +137,21 @@ public class CartItemRVController
                 }
             }
             @Override
-            public void onFailure(Call<ProfilResponse> call, Throwable t) {
+            public void onFailure(Call<ProfilListResponse> call, Throwable t) {
                 Toast.makeText(context,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void updateUserCartData(){
-        Call<ProfilResponse> call = apiServProf.updateProfil(profil.id,profil);
+        Call<ProfilListResponse> call = apiServProf.updateProfil(profil.id,profil);
 
-        call.enqueue(new Callback<ProfilResponse>() {
+        call.enqueue(new Callback<ProfilListResponse>() {
             @Override
-            public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
+            public void onResponse(Call<ProfilListResponse> call, Response<ProfilListResponse> response) {
                 if (response.body() != null){
                     if(response.isSuccessful()){
-                        profil = response.body().getProfil();
+                        profil = response.body().getProfilList().get(0);
                         setItemList(profil.getCartData());
                         //Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }else{
@@ -160,7 +160,7 @@ public class CartItemRVController
                 }
             }
             @Override
-            public void onFailure(Call<ProfilResponse> call, Throwable t) {
+            public void onFailure(Call<ProfilListResponse> call, Throwable t) {
                 Toast.makeText(context,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
             }
         });
