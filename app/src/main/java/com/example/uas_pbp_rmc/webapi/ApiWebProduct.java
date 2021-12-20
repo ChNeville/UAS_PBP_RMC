@@ -11,7 +11,6 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
-// TODO : Rangkai routing databasenya kyk gini Rama
 public interface ApiWebProduct {
     @Headers({"Accept: application/json"})
     @GET("product")
@@ -19,11 +18,11 @@ public interface ApiWebProduct {
 
     @Headers({"Accept: application/json"})
     @GET("product/{id}")
-    Call<ProductListResponse> getProductById(@Path("id") long id);
+    Call<ProductResponse> getProductById(@Path("id") long id);
 
     @Headers({"Accept: application/json"})
     @POST("product")
-    Call<ProductListResponse> createProduct(@Body ProductItem productItem);
+    Call<ProductResponse> createProduct(@Body ProductItem productItem);
 
     @Headers({"Accept: application/json"})
     @DELETE("product/{id}")
@@ -31,5 +30,5 @@ public interface ApiWebProduct {
 
     @Headers({"Accept: application/json"})
     @PUT("product/{id}")
-    Call<ProductListResponse> updateProduct(@Path("id") long id, @Body ProductItem productItem);
+    Call<ProductResponse> updateProduct(@Path("id") long id, @Body ProductItem productItem);
 }

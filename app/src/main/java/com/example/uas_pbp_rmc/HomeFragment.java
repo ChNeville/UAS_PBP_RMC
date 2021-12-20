@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -20,6 +22,7 @@ import com.example.uas_pbp_rmc.state.AdminState;
 import com.example.uas_pbp_rmc.webapi.ProductListResponse;
 import com.example.uas_pbp_rmc.webapi.ApiServer;
 import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -41,7 +44,7 @@ public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
     HomeItemRVController rvController;
 
-    Button adminAddFAB;
+    FloatingActionButton adminAddFAB;
 
     Context context;
 
@@ -67,30 +70,37 @@ public class HomeFragment extends Fragment {
 
         context = getContext();
 
-        adminAddFAB = getView().findViewById(R.id.home_admin_add_product);
-        adminAddFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeFragment.this, ProductEditActivity.class);
-                startActivityForResult(i, LAUNCH_ADD_ACTIVITY);
-            }
-                //TODO: Buka activity addedit buat produk di sini!
-                //TODO: Ini masih eror gatau cara panggil yg benar
-        });
-        adminAddFAB.setVisibility(View.GONE);
-
         rvController = new HomeItemRVController(new ArrayList<ProductItem>(), apiService, container.getContext(), getActivity());
         binding.setRvadapter(rvController);
 
         fetchProduct();
 
-        adminState = new AdminState(getContext());
-        if(adminState.getAdminState() == true){
+        adminState = new AdminState(context);
+        if(adminState.getAdminState() == true) {
             rvController.setAdminMode(true);
-            adminAddFAB.setVisibility(View.VISIBLE);
         }
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adminAddFAB = view.findViewById(R.id.home_admin_add_product);
+        adminAddFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ProductEditActivity.class);
+                startActivityForResult(intent, LAUNCH_ADD_ACTIVITY);
+            }
+            //TODO: Buka activity addedit buat produk di sini!
+            //TODO: Ini masih eror gatau cara panggil yg benar
+        });
+        adminAddFAB.setVisibility(View.GONE);
+
+        if(adminState.getAdminState() == true){
+            adminAddFAB.setVisibility(View.VISIBLE);
+        }
     }
 
     private void fetchProduct(){

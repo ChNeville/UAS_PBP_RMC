@@ -102,15 +102,15 @@ public class DetailActivity
     private void getProductByID(int id){
         Context ctx = this;
 
-        Call<ProductListResponse> call = apiService.getProductById(id);
+        Call<ProductResponse> call = apiService.getProductById(id);
 
-        call.enqueue(new Callback<ProductListResponse>() {
+        call.enqueue(new Callback<ProductResponse>() {
             @Override
-            public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 if (response.isSuccessful()){
                     Toast.makeText(ctx,response.body().getMessage(),Toast.LENGTH_SHORT).show();
-                    if(response.body().getProductList() != null) {
-                        ProductItem np = response.body().getProductList();
+                    if(response.body().getProduct() != null) {
+                        ProductItem np = response.body().getProduct();
                         productItem.setId(np.id);
                         productItem.setImageURL(np.imageURL);
                         productItem.setProductName(np.getProductName());
@@ -122,7 +122,7 @@ public class DetailActivity
                 }
             }
             @Override
-            public void onFailure(Call<ProductListResponse> call, Throwable t) {
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
                 Toast.makeText(ctx,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
             }
         });

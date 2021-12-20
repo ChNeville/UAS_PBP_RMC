@@ -52,7 +52,7 @@ public class ProductEditActivity extends AppCompatActivity {
         TextView tvTitle = findViewById(R.id.tv_title);
         long id = getIntent().getLongExtra("id", -1);
 
-        if (id == -1) {
+        if (id < 0) {
             tvTitle.setText("Tambah Product");
 
             btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +61,7 @@ public class ProductEditActivity extends AppCompatActivity {
                     createProduct();
                 }
             });
+            btnEdit.setText("Tambah");
         } else {
             tvTitle.setText("Edit Product");
             getProductById(id);
@@ -75,13 +76,13 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     private void getProductById(long id) {
-        Call<ProductListResponse> call = apiService.getProductById(id);
-        call.enqueue(new Callback<ProductListResponse>() {
+        Call<ProductResponse> call = apiService.getProductById(id);
+        call.enqueue(new Callback<ProductResponse>() {
             @Override
-            public void onResponse(Call<ProductListResponse> call,
-                                   Response<ProductListResponse> response) {
+            public void onResponse(Call<ProductResponse> call,
+                                   Response<ProductResponse> response) {
                 if (response.isSuccessful()) {
-                    ProductItem productList = response.body().getProductList().get(0);
+                    ProductItem productList = response.body().getProduct();
 
                     urlImageEDT.setText(productList.getImageURL());
                     namaEDT.setText(productList.getProductName());
@@ -100,7 +101,7 @@ public class ProductEditActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ProductListResponse> call, Throwable t) {
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
                 Toast.makeText(ProductEditActivity.this,
                         "Network error", Toast.LENGTH_SHORT).show();
             }
@@ -108,7 +109,7 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     private void createProduct() {
-        ProductItem productList = new ProductItem(
+        ProductItem product = new ProductItem(
                 0,
                 namaEDT.getText().toString(),
                 pricingEDT.getText().toString().isEmpty() ? null
@@ -116,11 +117,11 @@ public class ProductEditActivity extends AppCompatActivity {
                 specEDT.getText().toString(),
                 urlImageEDT.getText().toString());
 
-        Call<ProductListResponse> call = apiService.createProduct(productList);
-        call.enqueue(new Callback<ProductListResponse>() {
+        Call<ProductResponse> call = apiService.createProduct(product);
+        call.enqueue(new Callback<ProductResponse>() {
             @Override
-            public void onResponse(Call<ProductListResponse> call,
-                                   Response<ProductListResponse> response) {
+            public void onResponse(Call<ProductResponse> call,
+                                   Response<ProductResponse> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(ProductEditActivity.this,
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -140,7 +141,7 @@ public class ProductEditActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ProductListResponse> call, Throwable t) {
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
                 Toast.makeText(ProductEditActivity.this,
                         "Network error", Toast.LENGTH_SHORT).show();
             }
@@ -148,7 +149,7 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     private void updateProduct(long id) {
-        ProductItem productList = new ProductItem(
+        ProductItem product = new ProductItem(
                 0,
                 namaEDT.getText().toString(),
                 pricingEDT.getText().toString().isEmpty() ? null
@@ -156,11 +157,11 @@ public class ProductEditActivity extends AppCompatActivity {
                 specEDT.getText().toString(),
                 urlImageEDT.getText().toString());
 
-        Call<ProductListResponse> call = apiService.updateProduct(id, productList);
-        call.enqueue(new Callback<ProductListResponse>() {
+        Call<ProductResponse> call = apiService.updateProduct(id, product);
+        call.enqueue(new Callback<ProductResponse>() {
             @Override
-            public void onResponse(Call<ProductListResponse> call,
-                                   Response<ProductListResponse> response) {
+            public void onResponse(Call<ProductResponse> call,
+                                   Response<ProductResponse> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(ProductEditActivity.this,
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -180,7 +181,7 @@ public class ProductEditActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ProductListResponse> call, Throwable t) {
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
                 Toast.makeText(ProductEditActivity.this,
                         "Network error", Toast.LENGTH_SHORT).show();
             }

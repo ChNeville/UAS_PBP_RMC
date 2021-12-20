@@ -3,7 +3,9 @@ package com.example.uas_pbp_rmc;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -118,6 +120,9 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Login Sukses", Toast.LENGTH_SHORT).show();
+
+                                Intent returnIntent = new Intent();
+                                setResult(Activity.RESULT_OK, returnIntent);
                                 finish();
                             } else {
                                 Toast.makeText(LoginActivity.this, "Login Gagal", Toast.LENGTH_SHORT).show();

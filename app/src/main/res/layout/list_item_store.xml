@@ -44,28 +44,6 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp">
 
-                <ImageButton android:id="@+id/list_item_store_elm_ed_del"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_baseline_delete_24"
-                    android:visibility="@{itemEditable.editorVisibility}"
-                    android:onClick="@{() -> itemClickListener.adminDeleteAction(modelID)}"
-                    app:tint="#BB0044"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
-
-                <ImageButton android:id="@+id/list_item_store_elm_ed_edt"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_baseline_edit_24"
-                    android:visibility="@{itemEditable.editorVisibility}"
-                    android:onClick="@{() -> itemClickListener.adminEditAction(modelID)}"
-                    app:tint="#77AA00"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/list_item_store_elm_ed_del"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
-
                 <ImageView android:id="@+id/list_item_store_elm_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -105,6 +83,28 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+                <ImageButton android:id="@+id/list_item_store_elm_ed_del"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_baseline_delete_24"
+                    android:visibility="@{itemEditable.editorVisibility}"
+                    android:onClick="@{() -> itemClickListener.adminDeleteAction(modelID)}"
+                    app:tint="#BB0044"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+                <ImageButton android:id="@+id/list_item_store_elm_ed_edt"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_baseline_edit_24"
+                    android:visibility="@{itemEditable.editorVisibility}"
+                    android:onClick="@{() -> itemClickListener.adminEditAction(modelID)}"
+                    app:tint="#77AA00"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/list_item_store_elm_ed_del"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

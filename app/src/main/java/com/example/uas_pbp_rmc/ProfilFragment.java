@@ -95,16 +95,18 @@ public class ProfilFragment extends Fragment implements ProfilViewClickListener 
         call.enqueue(new Callback<ProfilResponse>() {
             @Override
             public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
-                if (response.isSuccessful()){
-                    Profil nprof = response.body().getProfil();
-                    profil.setUsername(nprof.getUsername());
-                    profil.setNama(nprof.getNama());
-                    profil.setAge(nprof.getAge());
-                    profil.setAddress(nprof.getAddress());
-                    profil.setMembership(nprof.getMembership());
-                    Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                if (response.body() != null){
+                    if (response.isSuccessful()){
+                        Profil nprof = response.body().getProfil();
+                        profil.setUsername(nprof.getUsername());
+                        profil.setNama(nprof.getNama());
+                        profil.setAge(nprof.getAge());
+                        profil.setAddress(nprof.getAddress());
+                        profil.setMembership(nprof.getMembership());
+                        Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
             @Override
@@ -118,6 +120,10 @@ public class ProfilFragment extends Fragment implements ProfilViewClickListener 
     public void onProfileEditClicked() {
         if(adminState.getAdminState() != true) {
             //TODO: Launch Activity Edit User di Sini (Edit dan Delete), User admin tak bisa di edit!
+            changeFragment(new EditProfilFragment());
+        }else{
+            Context context = getContext();
+            Toast.makeText(context, "You cannot change admin info!", Toast.LENGTH_SHORT).show();
         }
     }
 

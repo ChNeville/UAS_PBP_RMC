@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.uas_pbp_rmc.BR;
 import com.example.uas_pbp_rmc.DetailActivity;
+import com.example.uas_pbp_rmc.ProductEditActivity;
 import com.example.uas_pbp_rmc.R;
 import com.example.uas_pbp_rmc.databinding.ListItemStoreBinding;
 import com.example.uas_pbp_rmc.model.ProductItem;
@@ -42,6 +43,8 @@ public class HomeItemRVController
     private LayoutInflater layoutInflater;
 
     private EditorVisibility editorVisibility;
+
+    public static final int LAUNCH_ADD_ACTIVITY = 123;
 
     public HomeItemRVController(List<ProductItem> itemList, ApiWebProduct apiService, Context context, Activity activity){
         this.apiService = apiService;
@@ -87,15 +90,17 @@ public class HomeItemRVController
 
     @Override
     public void adminDeleteAction(int index) {
-        Call<ProductResponse> call = apiService.deleteProduct(index);
+        Call<ProductResponse> call = apiService.deleteProduct(itemList.get(index).id);
 
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
-                if (response.isSuccessful()){
-                    Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                if(response.body() != null){
+                    if (response.isSuccessful()){
+                        Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(context,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
             @Override
@@ -108,6 +113,9 @@ public class HomeItemRVController
     @Override
     public void adminEditAction(int index) {
         //TODO: Buat Activity Edit di sini dan jalankan CRUD Update!
+        Intent intent = new Intent(activity, ProductEditActivity.class);
+        intent.putExtra("id",(long) itemList.get(index).id);
+        activity.startActivityForResult(intent, LAUNCH_ADD_ACTIVITY);
     }
 
     public List<ProductItem> getItemList() {

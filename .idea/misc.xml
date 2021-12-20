@@ -6,14 +6,13 @@
         <entry key="../../../../../../../../layout/custom_preview.xml" value="0.3578125" />
         <entry key="..\:/UAS_PBP_RMC/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/UAS_PBP_RMC/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/UAS_PBP_RMC/app/src/main/res/layout/activity_product_edit.xml" value="0.22" />
+        <entry key="..\:/UAS_PBP_RMC/app/src/main/res/layout/activity_product_edit.xml" value="0.1" />
         <entry key="..\:/UAS_PBP_RMC/app/src/main/res/layout/activity_qrpage.xml" value="0.12771739130434784" />
         <entry key="..\:/UAS_PBP_RMC/app/src/main/res/layout/activity_qrscanner.xml" value="0.12771739130434784" />
         <entry key="..\:/UAS_PBP_RMC/app/src/main/res/layout/fragment_cart.xml" value="0.1" />
         <entry key="..\:/UAS_PBP_RMC/app/src/main/res/layout/fragment_edit_profil.xml" value="0.14" />
         <entry key="..\:/UAS_PBP_RMC/app/src/main/res/layout/fragment_home.xml" value="0.11503623188405797" />
         <entry key="..\:/UAS_PBP_RMC/app/src/main/res/layout/fragment_profil.xml" value="0.22" />
-        <entry key="..\:/UAS_PBP_RMC/app/src/main/res/layout/list_item_cart.xml" value="0.1" />
         <entry key="..\:/UAS_PBP_RMC/app/src/main/res/layout/list_item_store.xml" value="0.2" />
         <entry key="..\:/UAS_PBP_RMC/app/src/main/res/menu/menu_navigation.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_shopping_cart_24.xml" value="0.190625" />
@@ -22,12 +21,14 @@
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.1287037037037037" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.11503623188405797" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="app/src/main/res/layout/activity_product_edit.xml" value="0.32395833333333335" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.32395833333333335" />
+        <entry key="app/src/main/res/layout/fragment_edit_profil.xml" value="0.32395833333333335" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.23052536231884058" />
         <entry key="app/src/main/res/layout/fragment_profil.xml" value="0.32395833333333335" />
         <entry key="app/src/main/res/layout/list_item_cart.xml" value="0.23052536231884058" />
-        <entry key="app/src/main/res/layout/list_item_store.xml" value="0.23052536231884058" />
+        <entry key="app/src/main/res/layout/list_item_store.xml" value="0.264" />
         <entry key="app/src/main/res/menu/menu_navigation.xml" value="0.32395833333333335" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.190625" />
       </map>
