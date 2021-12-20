@@ -19,11 +19,11 @@ public interface ApiWebProduct {
 
     @Headers({"Accept: application/json"})
     @GET("product/{id}")
-    Call<ProductResponse> getProductById(@Path("id") long id);
+    Call<ProductListResponse> getProductById(@Path("id") long id);
 
     @Headers({"Accept: application/json"})
     @POST("product")
-    Call<ProductResponse> createProduct(@Body ProductItem productItem);
+    Call<ProductListResponse> createProduct(@Body ProductItem productItem);
 
     @Headers({"Accept: application/json"})
     @DELETE("product/{id}")
@@ -31,5 +31,5 @@ public interface ApiWebProduct {
 
     @Headers({"Accept: application/json"})
     @PUT("product/{id}")
-    Call<ProductResponse> updateProduct(@Path("id") long id, @Body ProductItem productItem);
+    Call<ProductListResponse> updateProduct(@Path("id") long id, @Body ProductItem productItem);
 }

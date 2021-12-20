@@ -1,6 +1,7 @@
 package com.example.uas_pbp_rmc;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -32,6 +33,7 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
     AdminState adminState;
 
     ApiWebProduct apiService;
@@ -43,6 +45,7 @@ public class HomeFragment extends Fragment {
 
     Context context;
 
+    public static final int LAUNCH_ADD_ACTIVITY = 123;
     public HomeFragment() {}
 
     public static HomeFragment newInstance(String param1, String param2) {
@@ -68,8 +71,11 @@ public class HomeFragment extends Fragment {
         adminAddFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Buka activity addedit buat produk di sini!
+                Intent i = new Intent(HomeFragment.this, ProductEditActivity.class);
+                startActivityForResult(i, LAUNCH_ADD_ACTIVITY);
             }
+                //TODO: Buka activity addedit buat produk di sini!
+                //TODO: Ini masih eror gatau cara panggil yg benar
         });
         adminAddFAB.setVisibility(View.GONE);
 

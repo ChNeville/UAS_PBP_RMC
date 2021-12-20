@@ -63,12 +63,12 @@
                 android:id="@+id/btn_delete"
                 android:layout_width="30dp"
                 android:layout_height="40dp"
-                android:layout_centerVertical="true"
                 android:layout_alignEnd="@id/cart_title"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/ic_baseline_delete_24"
                 android:background="@color/white"
-                android:onClick="@{() -> itemClickListener.itemDeleteAction(itemID)}"/>
+                android:onClick="@{() -> itemClickListener.itemDeleteAction(itemID)}"
+                android:src="@drawable/ic_baseline_delete_24" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

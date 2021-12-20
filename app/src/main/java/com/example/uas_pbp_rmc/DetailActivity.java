@@ -19,6 +19,7 @@ import com.example.uas_pbp_rmc.model.Profil;
 import com.example.uas_pbp_rmc.state.AdminState;
 import com.example.uas_pbp_rmc.webapi.ApiServer;
 import com.example.uas_pbp_rmc.webapi.ApiWebProfil;
+import com.example.uas_pbp_rmc.webapi.ProductListResponse;
 import com.example.uas_pbp_rmc.webapi.ProductResponse;
 import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
 import com.example.uas_pbp_rmc.webapi.ProfilResponse;
@@ -101,15 +102,15 @@ public class DetailActivity
     private void getProductByID(int id){
         Context ctx = this;
 
-        Call<ProductResponse> call = apiService.getProductById(id);
+        Call<ProductListResponse> call = apiService.getProductById(id);
 
-        call.enqueue(new Callback<ProductResponse>() {
+        call.enqueue(new Callback<ProductListResponse>() {
             @Override
-            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+            public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
                 if (response.isSuccessful()){
                     Toast.makeText(ctx,response.body().getMessage(),Toast.LENGTH_SHORT).show();
-                    if(response.body().getProduct() != null) {
-                        ProductItem np = response.body().getProduct();
+                    if(response.body().getProductList() != null) {
+                        ProductItem np = response.body().getProductList();
                         productItem.setId(np.id);
                         productItem.setImageURL(np.imageURL);
                         productItem.setProductName(np.getProductName());
@@ -121,7 +122,7 @@ public class DetailActivity
                 }
             }
             @Override
-            public void onFailure(Call<ProductResponse> call, Throwable t) {
+            public void onFailure(Call<ProductListResponse> call, Throwable t) {
                 Toast.makeText(ctx,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
             }
         });
