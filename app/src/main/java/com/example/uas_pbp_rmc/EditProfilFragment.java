@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.uas_pbp_rmc.databinding.FragmentProfilBinding;
 
-public class EditProfilFragment extends AppCompatActivity{//fragment
+public class EditProfilFragment extends AppCompatActivity {//fragment
 
     EditText etMembership, etName, etUsername, etAge, etAddress;
 

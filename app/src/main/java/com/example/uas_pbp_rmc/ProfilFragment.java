@@ -120,7 +120,8 @@ public class ProfilFragment extends Fragment implements ProfilViewClickListener 
     public void onProfileEditClicked() {
         if(adminState.getAdminState() != true) {
             //TODO: Launch Activity Edit User di Sini (Edit dan Delete), User admin tak bisa di edit!
-            changeFragment(new EditProfilFragment());
+            Intent intent = new Intent(getActivity(), EditProfilFragment.class);
+            startActivity(intent);
         }else{
             Context context = getContext();
             Toast.makeText(context, "You cannot change admin info!", Toast.LENGTH_SHORT).show();
