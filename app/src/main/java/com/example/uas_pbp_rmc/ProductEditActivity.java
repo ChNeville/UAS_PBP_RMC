@@ -109,13 +109,12 @@ public class ProductEditActivity extends AppCompatActivity {
 
     private void createProduct() {
         ProductItem productList = new ProductItem(
-                urlImageEDT.getText().toString(),
+                0,
                 namaEDT.getText().toString(),
-                specEDT.getText().toString(),
                 pricingEDT.getText().toString().isEmpty() ? null
-                        : Float.parseFloat(pricingEDT.getText().toString()));
-
-                //TODO: Ini gmn ya kalau float
+                        : Float.parseFloat(pricingEDT.getText().toString()),
+                specEDT.getText().toString(),
+                urlImageEDT.getText().toString());
 
         Call<ProductListResponse> call = apiService.createProduct(productList);
         call.enqueue(new Callback<ProductListResponse>() {
@@ -150,12 +149,12 @@ public class ProductEditActivity extends AppCompatActivity {
 
     private void updateProduct(long id) {
         ProductItem productList = new ProductItem(
-                urlImageEDT.getText().toString(),
+                0,
                 namaEDT.getText().toString(),
-                specEDT.getText().toString(),
                 pricingEDT.getText().toString().isEmpty() ? null
-                        : Float.parseFloat(pricingEDT.getText().toString()));
-                //TODO: Ini gmn ya kalau float
+                        : Float.parseFloat(pricingEDT.getText().toString()),
+                specEDT.getText().toString(),
+                urlImageEDT.getText().toString());
 
         Call<ProductListResponse> call = apiService.updateProduct(id, productList);
         call.enqueue(new Callback<ProductListResponse>() {
