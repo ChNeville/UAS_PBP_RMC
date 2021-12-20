@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.PERMISSION"/>
+    <uses-permission android:name="android.permission.PERMISSION" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +15,9 @@
         android:theme="@style/Theme.UAS_PBP_RMC">
         <activity
             android:name=".ProductEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditProfilFragment"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
