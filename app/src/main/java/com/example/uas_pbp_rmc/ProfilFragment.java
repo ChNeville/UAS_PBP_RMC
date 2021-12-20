@@ -22,7 +22,7 @@ import com.example.uas_pbp_rmc.webapi.ApiServer;
 import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
 import com.example.uas_pbp_rmc.webapi.ApiWebProfil;
 import com.example.uas_pbp_rmc.webapi.ProductListResponse;
-import com.example.uas_pbp_rmc.webapi.ProfilResponse;
+import com.example.uas_pbp_rmc.webapi.ProfilListResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -90,14 +90,14 @@ public class ProfilFragment extends Fragment implements ProfilViewClickListener 
     private void loadUserData(){
         Context context = getContext();
 
-        Call<ProfilResponse> call = apiService.getProfilByUsername(username);
+        Call<ProfilListResponse> call = apiService.getProfilByUsername(username);
 
-        call.enqueue(new Callback<ProfilResponse>() {
+        call.enqueue(new Callback<ProfilListResponse>() {
             @Override
-            public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
+            public void onResponse(Call<ProfilListResponse> call, Response<ProfilListResponse> response) {
                 if (response.body() != null){
                     if (response.isSuccessful()){
-                        Profil nprof = response.body().getProfil();
+                        Profil nprof = response.body().getProfilList().get(0);
                         profil.setUsername(nprof.getUsername());
                         profil.setNama(nprof.getNama());
                         profil.setAge(nprof.getAge());
@@ -110,7 +110,7 @@ public class ProfilFragment extends Fragment implements ProfilViewClickListener 
                 }
             }
             @Override
-            public void onFailure(Call<ProfilResponse> call, Throwable t) {
+            public void onFailure(Call<ProfilListResponse> call, Throwable t) {
                 Toast.makeText(context,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
             }
         });

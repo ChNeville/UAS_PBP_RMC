@@ -18,8 +18,7 @@ import com.example.uas_pbp_rmc.model.Profil;
 import com.example.uas_pbp_rmc.state.AdminState;
 import com.example.uas_pbp_rmc.webapi.ApiServer;
 import com.example.uas_pbp_rmc.webapi.ApiWebProfil;
-import com.example.uas_pbp_rmc.webapi.ProductListResponse;
-import com.example.uas_pbp_rmc.webapi.ProfilResponse;
+import com.example.uas_pbp_rmc.webapi.ProfilListResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -155,10 +154,10 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void registerUserData(Context ctx, String emailname, String username){
         Profil profil = new Profil(emailname, username);
-        Call<ProfilResponse> call = apiService.createProfil(profil);
-        call.enqueue(new Callback<ProfilResponse>() {
+        Call<ProfilListResponse> call = apiService.createProfil(profil);
+        call.enqueue(new Callback<ProfilListResponse>() {
             @Override
-            public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
+            public void onResponse(Call<ProfilListResponse> call, Response<ProfilListResponse> response) {
                 if(response.body() != null){
                     if (response.isSuccessful()){
                         Toast.makeText(ctx,response.body().getMessage(),Toast.LENGTH_SHORT).show();
@@ -168,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<ProfilResponse> call, Throwable t) {
+            public void onFailure(Call<ProfilListResponse> call, Throwable t) {
                 Toast.makeText(ctx,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
             }
         });

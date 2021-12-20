@@ -22,7 +22,7 @@ import com.example.uas_pbp_rmc.webapi.ApiWebProfil;
 import com.example.uas_pbp_rmc.webapi.ProductListResponse;
 import com.example.uas_pbp_rmc.webapi.ProductResponse;
 import com.example.uas_pbp_rmc.webapi.ApiWebProduct;
-import com.example.uas_pbp_rmc.webapi.ProfilResponse;
+import com.example.uas_pbp_rmc.webapi.ProfilListResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -102,15 +102,15 @@ public class DetailActivity
     private void getProductByID(int id){
         Context ctx = this;
 
-        Call<ProductResponse> call = apiService.getProductById(id);
+        Call<ProductListResponse> call = apiService.getProductById(id);
 
-        call.enqueue(new Callback<ProductResponse>() {
+        call.enqueue(new Callback<ProductListResponse>() {
             @Override
-            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+            public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
                 if (response.isSuccessful()){
                     Toast.makeText(ctx,response.body().getMessage(),Toast.LENGTH_SHORT).show();
-                    if(response.body().getProduct() != null) {
-                        ProductItem np = response.body().getProduct();
+                    if(response.body().getProductList() != null) {
+                        ProductItem np = response.body().getProductList().get(0);
                         productItem.setId(np.id);
                         productItem.setImageURL(np.imageURL);
                         productItem.setProductName(np.getProductName());
@@ -122,7 +122,7 @@ public class DetailActivity
                 }
             }
             @Override
-            public void onFailure(Call<ProductResponse> call, Throwable t) {
+            public void onFailure(Call<ProductListResponse> call, Throwable t) {
                 Toast.makeText(ctx,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
             }
         });
@@ -137,30 +137,30 @@ public class DetailActivity
             activity.startActivity(intent);
         }
 
-        Call<ProfilResponse> call = apiServProf.getProfilByUsername(username);
+        Call<ProfilListResponse> call = apiServProf.getProfilByUsername(username);
 
-        call.enqueue(new Callback<ProfilResponse>() {
+        call.enqueue(new Callback<ProfilListResponse>() {
             @Override
-            public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
+            public void onResponse(Call<ProfilListResponse> call, Response<ProfilListResponse> response) {
                 if (response.isSuccessful()){
-                    Profil prof = response.body().getProfil();
+                    Profil prof = response.body().getProfilList().get(0);
                     prof.getCartData().add(id);
 
-                    call = apiServProf.updateProfil(response.body().getProfil().id, prof);
-                    call.enqueue(new Callback<ProfilResponse>() {
+                    call = apiServProf.updateProfil(response.body().getProfilList().get(0).id, prof);
+                    call.enqueue(new Callback<ProfilListResponse>() {
                         @Override
-                        public void onResponse(Call<ProfilResponse> c2, Response<ProfilResponse> r2) {
+                        public void onResponse(Call<ProfilListResponse> c2, Response<ProfilListResponse> r2) {
                             Toast.makeText(context, "Item masuk ke dalam cart!", Toast.LENGTH_SHORT).show();
                         }
                         @Override
-                        public void onFailure(Call<ProfilResponse> c2, Throwable t2) {
+                        public void onFailure(Call<ProfilListResponse> c2, Throwable t2) {
                             Toast.makeText(context,"Failed to connect to Web API!",Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
             }
             @Override
-            public void onFailure(Call<ProfilResponse> call, Throwable t) {}
+            public void onFailure(Call<ProfilListResponse> call, Throwable t) {}
         });
     }
 }

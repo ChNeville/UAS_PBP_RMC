@@ -15,25 +15,25 @@ import retrofit2.http.Path;
 public interface ApiWebProfil {
     @Headers({"Accept: application/json"})
     @GET("profil")
-    Call<ProfilResponse> getAllProfil();
+    Call<ProfilListResponse> getAllProfil();
 
     @Headers({"Accept: application/json"})
     @GET("profil/{id}")
-    Call<ProfilResponse> getProfilById(@Path("id") int id);
+    Call<ProfilListResponse> getProfilById(@Path("id") int id);
 
     @Headers({"Accept: application/json"})
     @GET("profil/username/{username}")
-    Call<ProfilResponse> getProfilByUsername(@Path("username") String username);
+    Call<ProfilListResponse> getProfilByUsername(@Path("username") String username);
 
     @Headers({"Accept: application/json"})
     @POST("profil")
-    Call<ProfilResponse> createProfil(@Body Profil profil);
+    Call<ProfilListResponse> createProfil(@Body Profil profil);
 
     @Headers({"Accept: application/json"})
     @DELETE("profil/{id}")
-    Call<ProfilResponse> deleteProfil(@Path("id") int id);
+    Call<ProfilListResponse> deleteProfil(@Path("id") int id);
 
     @Headers({"Accept: application/json"})
     @PUT("profil/{id}")
-    Call<ProfilResponse> updateProfil(@Path("id") int id, @Body Profil profil);
+    Call<ProfilListResponse> updateProfil(@Path("id") int id, @Body Profil profil);
 }
